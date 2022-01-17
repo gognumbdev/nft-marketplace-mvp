@@ -2,6 +2,19 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Navbar from "../components/Navbar"
 import Banner from '../components/Banner'
+import NFTCard from '../components/NFTCard'
+import NFTSet from '../components/NFTSet'
+
+const data = {
+  image:"https://lh3.googleusercontent.com/T_QvX8TVs6KczTHtXX8OMLVpiyDCvVKLmAczU4bdDZ0OSNVk-G7kGov9VV0MB3WIMFCA_nLXM5G7BjzxJ2IBxgTz5z__DfKKO3Pn=w600",
+  username:"poom_jirayu",
+  profileImage:"https://lh3.googleusercontent.com/OrUmaANKu0q3Eq7JjPj2GHU3kLQ6hIswAF2giK4R4wAodzva95XTp_vFJ2NjsUPd18AS8WJlARtRV0CY8mDa_QQjN4XAz8mnNJnA=s0",
+  nftName:"BER_JUNK_warrior_no5",
+  blockchain:"polygon",
+  blockchainImage:"https://pbs.twimg.com/profile_images/1401931168056967175/q4itcBEb_400x400.jpg",
+  price:"28.09",
+  unit:"Matic",
+}
 
 export default function Home() {
   return (
@@ -13,7 +26,12 @@ export default function Home() {
       </Head>
 
       <main>
-        <Banner />
+        <Banner data={data} />
+        <NFTSet data={data} />
+        <NFTSet data={data} />
+        <NFTSet data={data} />
+        <NFTSet data={data} />
+        <NFTSet data={data} />
       </main>
 
    

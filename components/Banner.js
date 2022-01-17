@@ -1,9 +1,22 @@
-const Banner = () => {
-    return (
-        <div className='flex-col px-10 py-14'>
-            <h1 className='text-2xl font-bold'>Explore your interest NFT with special contract</h1>
+import NFTCard from "./NFTCard"
 
-            <h1 className='text-2xl font-bold'>Explore Creativity , Story and Community</h1>
+const Banner = ({data}) => {
+    return (
+        <div className='flex px-12 py-14 justify-between space-x-5'>
+            <div className="flex-col w-3/6 space-y-5">
+                <p className="text-4xl font-bold">Creativity , Story and Community</p>
+                <p className="text-xl font-regular">Explore your interest NFT with special contract offer from creator.</p>
+            </div>
+            <NFTCard 
+                image={data.image}
+                username={data.username}
+                profileImage={data.profileImage}
+                nftName={data.nftName}
+                blockchain={data.blockchain}
+                blockchainImage={data.blockchainImage}
+                price={data.price}
+                unit={data.unit}
+            />
         </div>
     )
 }
