@@ -8,18 +8,18 @@ import { useRouter } from 'next/router'
 const Navbar = () => {
     const router = useRouter();
 
-    const goToProfile = () => {
-        router.push({
-            pathname: '/blog/[blogTopic]',
-            query: { 
-                blogCategory:category,
-                blogTopic: topic,
-                blogImg:img,
-                blogDate:date,
-                blogArticle:article
-            },
-        })
-    }
+    // const goToProfile = () => {
+    //     router.push({
+    //         pathname: '/blog/[blogTopic]',
+    //         query: { 
+    //             blogCategory:category,
+    //             blogTopic: topic,
+    //             blogImg:img,
+    //             blogDate:date,
+    //             blogArticle:article
+    //         },
+    //     })
+    // }
 
     return (
         <div className="flex justify-between items-center sticky top-0 border-2 shadow-md h-12 px-10 py-4 text-slate-800 text-bold lg:text-2xl z-50 bg-white w-screen">
