@@ -40,14 +40,35 @@ const data = [
         creator:"Bored Ape Yacht Club",
         ownerImage:"https://lh3.googleusercontent.com/Ju9CkWtV-1Okvf45wo8UctR-M9He2PjILP0oOvxE89AyiPPGtrR3gysu1Zgy0hjd2xKIgjJJtWIc0ybj4Vd7wv8t3pxDGHoJBzDB=s130",
         creatorImage:"https://lh3.googleusercontent.com/Ju9CkWtV-1Okvf45wo8UctR-M9He2PjILP0oOvxE89AyiPPGtrR3gysu1Zgy0hjd2xKIgjJJtWIc0ybj4Vd7wv8t3pxDGHoJBzDB=s130",
-        nftName:"#7596",
+        // nftName:"#7596",
+        nftName:"#7596 belong to Bore Ape Yatch Club. This is just an example I use for my MVP. Please Don't sue me.",
         blockchain:"polygon",
         blockchainImage:"https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
         price:"91.69",
         unit:"Matic",
+        story:"The Bored Ape Yacht Club is a collection of 10,000 unique Bored Ape NFTs— unique digital collectibles living on the Ethereum blockchain. Your Bored Ape doubles as your Yacht Club membership card, and grants access to members-only benefits, the first of which is access to THE BATHROOM, a collaborative graffiti board. Future areas and perks can be unlocked by the community through roadmap activation. Visit www.BoredApeYachtClub.com for more details.",
         offering:{
             offer:true,
-            offerList:[]
+            offerList:[
+                {
+                    number:1,
+                    price:"30.0",
+                    description:"The Evolution of your Bored Ape NFT !",
+                    startDate:"18/January/2022",
+                    deliverTime:"15",
+                    deliverDate:"2/February/2022",
+                    deliverTo:"",
+                },
+                {
+                    number:2,
+                    price:"15.0",
+                    description:"The Evolution of your Bored Ape NFT !",
+                    startDate:"3/January/2022",
+                    deliverTime:"15",
+                    deliverDate:"18/February/2022",
+                    deliverTo:"",
+                },
+            ]
         }
     },
     {

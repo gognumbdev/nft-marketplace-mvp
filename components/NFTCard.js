@@ -15,8 +15,8 @@ const NFTCard = ({productId,image,owner,ownerImage,nftName,blockchain,blockchain
 
     return (
         <div 
-            className="border-1 shadow-3xl flex-col rounded-xl w-48 h-72 hover:scale-105 cursor-pointer
-            transform transition duration-300 ease-out active:scale-95"
+            className="border-1 shadow-xl flex-col rounded-xl w-48 h-72 hover:scale-105 cursor-pointer
+            transform transition duration-300 ease-out active:scale-95 bg-white truncate"
             onClick={goToProduct}
         >
             {/* Card Head */}
