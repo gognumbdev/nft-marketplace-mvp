@@ -1,5 +1,6 @@
 import NFTCard from "../components/NFTCard"
 import { useState } from "react"
+import Head from "next/head"
 
 const data = {
     image:"https://lh3.googleusercontent.com/T_QvX8TVs6KczTHtXX8OMLVpiyDCvVKLmAczU4bdDZ0OSNVk-G7kGov9VV0MB3WIMFCA_nLXM5G7BjzxJ2IBxgTz5z__DfKKO3Pn=w600",
@@ -16,6 +17,10 @@ const CreatePage = () => {
     var [contractData, setContractData] = useState([])
     return (
         <div className="p-6 space-y-12">
+            <Head>
+                <title>Create NFT</title>
+            </Head>
+
             <div className="flex flex-row">
                 <div className="basis-1/3">
                     <PreviewSection/>

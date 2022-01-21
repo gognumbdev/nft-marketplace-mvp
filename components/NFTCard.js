@@ -1,16 +1,28 @@
+import { useRouter } from "next/router";
 
 
-const NFTCard = ({image,username,profileImage,nftName,blockchain,blockchainImage,price,unit}) => {
+const NFTCard = ({productId,image,owner,ownerImage,nftName,blockchain,blockchainImage,price,unit}) => {
+    const router = useRouter();
+
+    const goToProduct = () => {
+        router.push({
+            pathname: '/product/[productId]',
+            query: { 
+                productId:productId,
+            },
+        })
+    }
+
     return (
         <div 
-            className="border-1 shadow-3xl flex-col rounded-xl w-48 h-72 hover:scale-105 cursor-pointer
-            transform transition duration-300 ease-out active:scale-95"
-        
+            className="border-1 shadow-xl flex-col rounded-xl w-48 h-72 hover:scale-105 cursor-pointer
+            transform transition duration-300 ease-out active:scale-95 bg-white truncate"
+            onClick={goToProduct}
         >
             {/* Card Head */}
             <div className="px-2 py-1 flex justify-start items-center space-x-2">
-                <img src={profileImage} alt={username} className="h-6 rounded-full" />
-                <p className="text-xs font-medium">{username}</p>
+                <img src={ownerImage} alt={owner} className="h-6 rounded-full" />
+                <p className="text-xs font-medium">{owner}</p>
             </div>
 
             <img src={image} alt={nftName} className="h-48 w-48 object-cover" />

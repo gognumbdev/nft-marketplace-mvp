@@ -1,5 +1,6 @@
 import NFTSet from '../../components/NFTSet'
 import Image from 'next/image'
+import Head from 'next/head'
 
 const product_data = {
     image:"https://lh3.googleusercontent.com/T_QvX8TVs6KczTHtXX8OMLVpiyDCvVKLmAczU4bdDZ0OSNVk-G7kGov9VV0MB3WIMFCA_nLXM5G7BjzxJ2IBxgTz5z__DfKKO3Pn=w600",
@@ -33,6 +34,9 @@ const user_data = {
 const ProfilePage = () => {
     return (
         <div className="p-6 space-y-6">
+            <Head>
+                <title>{user_data.walletId}</title>
+            </Head>
             <ProfileInfo {...user_data}/>
             <NFTSet data={product_data}/>
         </div>
