@@ -1,11 +1,15 @@
 import Head from "next/head";
-import NFTInsight from "../../components/product/NFTInsight";
+import Box from "../../components/3Dmodels/Box";
 import NFTProduct from "../../components/product/NFTProduct";
 import OwnershipCard from "../../components/product/OwnershipCard";
 import TransactionCard from "../../components/product/TransactionCard";
+import dynamic from 'next/dynamic'
+
 
 const product = ({product}) => {
-    const {productId,image,owner,creator,ownerImage,creatorImage,nftName,blockchain,blockchainImage,price,unit,story,offering} = product;
+    const {productId,owner,creator,ownerImage,creatorImage,nftName,blockchain,blockchainImage,price,unit,story} = product;
+    const Model3D = dynamic(() => import(`../../components/3Dmodels/${product.jsx}`))
+
     return (
         <div className="flex-col w-screen items-center justify-start">
             <Head>
@@ -13,17 +17,15 @@ const product = ({product}) => {
             </Head>
 
             {/* NFT product */}
-            <NFTProduct image={image} nftName={nftName} />
+            <NFTProduct Model={Model3D} nftName={nftName} />
+            
             
             {/* NFT basic details */}   
             <div className="flex justify-around px-10">
                 <OwnershipCard owner={owner} ownerImage={ownerImage} creator={creator} creatorImage={creatorImage}/>
-                <TransactionCard price={price} offering={offering} unit={unit} blockchainImage={blockchainImage} blockchain={blockchain} />
+                <TransactionCard price={price} unit={unit} blockchainImage={blockchainImage} blockchain={blockchain} />
             </div>
-        
-            {/* NFT insights */}
-            <NFTInsight offering={offering} story={story} blockchain={blockchain} blockchainImage={blockchainImage} unit={unit} />
-            
+    
         </div>
     )
 }
