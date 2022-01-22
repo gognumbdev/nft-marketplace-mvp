@@ -1,4 +1,8 @@
+import { OrbitControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
 import Head from "next/head";
+import { Suspense } from "react";
+import Box from "../../components/3Dmodels/Box";
 import NFTInsight from "../../components/product/NFTInsight";
 import NFTProduct from "../../components/product/NFTProduct";
 import OwnershipCard from "../../components/product/OwnershipCard";
@@ -13,17 +17,15 @@ const product = ({product}) => {
             </Head>
 
             {/* NFT product */}
-            <NFTProduct image={image} nftName={nftName} />
+            <NFTProduct Model={Box} nftName={nftName} />
+            
             
             {/* NFT basic details */}   
             <div className="flex justify-around px-10">
                 <OwnershipCard owner={owner} ownerImage={ownerImage} creator={creator} creatorImage={creatorImage}/>
-                <TransactionCard price={price} offering={offering} unit={unit} blockchainImage={blockchainImage} blockchain={blockchain} />
+                <TransactionCard price={price} unit={unit} blockchainImage={blockchainImage} blockchain={blockchain} />
             </div>
-        
-            {/* NFT insights */}
-            <NFTInsight offering={offering} story={story} blockchain={blockchain} blockchainImage={blockchainImage} unit={unit} />
-            
+    
         </div>
     )
 }

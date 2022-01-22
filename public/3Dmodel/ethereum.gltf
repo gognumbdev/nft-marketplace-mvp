@@ -1,0 +1,335 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 101,
+      "max": [
+        4.208333492279053
+      ],
+      "min": [
+        0.0416666679084301
+      ],
+      "type": "SCALAR",
+      "byteOffset": 0
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 101,
+      "max": [
+        0,
+        3.0016462802886963,
+        0
+      ],
+      "min": [
+        0,
+        1.8755011558532715,
+        0
+      ],
+      "type": "VEC3",
+      "byteOffset": 0
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 404,
+      "componentType": 5126,
+      "count": 100,
+      "max": [
+        4.166666507720947
+      ],
+      "min": [
+        0.0416666679084301
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 1212,
+      "componentType": 5126,
+      "count": 100,
+      "max": [
+        0,
+        3.0016462802886963,
+        0
+      ],
+      "min": [
+        0,
+        1.8755011558532715,
+        0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "componentType": 5125,
+      "count": 36,
+      "type": "SCALAR"
+    },
+    {
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        0.5681560273263968,
+        0.23108286016127644,
+        0.8983667224061256
+      ],
+      "min": [
+        -0.5644152491700416,
+        -0.4260881274354224,
+        -0.8983667224061256
+      ],
+      "type": "VEC3"
+    },
+    {
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        1.0945470971366982,
+        2.432365671156905,
+        0.4760863247241517
+      ],
+      "min": [
+        -1.0941395912161092,
+        -1.648270383833907,
+        -0.47586293554212855
+      ],
+      "type": "VEC3"
+    },
+    {
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        0.4904692177519654,
+        0.4904692177519654
+      ],
+      "min": [
+        0.009530797149195816,
+        0.009530797149195816
+      ],
+      "type": "VEC2"
+    }
+  ],
+  "animations": [
+    {
+      "channels": [
+        {
+          "sampler": 0,
+          "target": {
+            "node": 3,
+            "path": "translation"
+          }
+        }
+      ],
+      "name": "Action",
+      "samplers": [
+        {
+          "input": 0,
+          "interpolation": "LINEAR",
+          "output": 1
+        }
+      ]
+    },
+    {
+      "channels": [
+        {
+          "sampler": 0,
+          "target": {
+            "node": 3,
+            "path": "translation"
+          }
+        }
+      ],
+      "name": "ConeAction",
+      "samplers": [
+        {
+          "input": 2,
+          "interpolation": "LINEAR",
+          "output": 3
+        }
+      ]
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "junior.phillip (https://sketchfab.com/junior.phillip)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/eth-coin-e6bd61ef2fa54308ba0ef65507ead9c9",
+      "title": "ETH Coin"
+    },
+    "generator": "Sketchfab-10.63.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 804,
+      "byteOffset": 0,
+      "name": "floatBufferViews"
+    },
+    {
+      "buffer": 0,
+      "byteLength": 2412,
+      "byteOffset": 808,
+      "byteStride": 12,
+      "name": "floatBufferViews"
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 3224,
+      "byteLength": 294
+    }
+  ],
+  "buffers": [
+    {
+      "name": "ether",
+      "byteLength": 3520,
+      "uri": "data:application/octet-stream;base64,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"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "Material.001",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.206687,
+          0.206687,
+          0.206687,
+          1
+        ],
+        "roughnessFactor": 0.5,
+        "metallicFactor": 1
+      },
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "alphaMode": "OPAQUE"
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Object_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 5,
+            "POSITION": 6,
+            "TEXCOORD_0": 7
+          },
+          "indices": 4,
+          "material": 0,
+          "mode": 4,
+          "extensions": {
+            "KHR_draco_mesh_compression": {
+              "bufferView": 2,
+              "attributes": {
+                "NORMAL": 0,
+                "POSITION": 1,
+                "TEXCOORD_0": 2
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        -1,
+        0,
+        0,
+        1,
+        2.220446049250313e-16,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "name": "root"
+    },
+    {
+      "children": [
+        3
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.220446049250313e-16,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "name": "GLTF_SceneRootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "name": "Cone_2",
+      "translation": [
+        0,
+        2.5903167724609375,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "mesh": 0,
+      "name": "Object_4"
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "extensionsRequired": [
+    "KHR_draco_mesh_compression"
+  ],
+  "extensionsUsed": [
+    "KHR_draco_mesh_compression"
+  ]
+}

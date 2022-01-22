@@ -1,14 +1,21 @@
-const NFTProduct = ({image,nftName}) => {
+import { OrbitControls } from "@react-three/drei"
+import { Canvas } from "@react-three/fiber"
+
+const NFTProduct = ({Model,nftName}) => {
     return (
-        <div className="py-8">
-            <center>
-                <img src={image} alt={nftName} className="w-2/6 h-2/6  self-center" />
-            </center>
-            {/* NFT NAME */}
-            <p className="relative font-bold text-xl ml-16 mt-3 px-5 py-3 w-fit max-w-xl shadow-xl bg-white rounded-xl">
-                <span className="absolute top-[-20px] left-2 font-light text-base">name</span>
+        <div className="py-8 flex-col space-y-5">
+            <Canvas>
+                <OrbitControls enableZoom={false} />
+                <ambientLight intensity={0.5} />
+                <directionalLight position={[-2,5,2]} intensity={1} />
+                <Model />
+            </Canvas>
+            
+            <p className="relative shadow-lg bg-white w-fit p-2 text-2xl max-w-4xl">
                 {nftName}
-            </p>
+                <span className="">name as;ldjas;lkd;laskd;laskd;lakd;laskd;lak;dlaska;lsdk;alskd;laskd;laskd;la;sldk;aslkss</span>
+           </p>
+
         </div>
     )
 }
