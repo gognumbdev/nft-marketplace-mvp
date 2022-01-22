@@ -1,15 +1,15 @@
-import { OrbitControls } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
 import Head from "next/head";
-import { Suspense } from "react";
 import Box from "../../components/3Dmodels/Box";
-import NFTInsight from "../../components/product/NFTInsight";
 import NFTProduct from "../../components/product/NFTProduct";
 import OwnershipCard from "../../components/product/OwnershipCard";
 import TransactionCard from "../../components/product/TransactionCard";
+import dynamic from 'next/dynamic'
+
 
 const product = ({product}) => {
-    const {productId,image,owner,creator,ownerImage,creatorImage,nftName,blockchain,blockchainImage,price,unit,story,offering} = product;
+    const {productId,owner,creator,ownerImage,creatorImage,nftName,blockchain,blockchainImage,price,unit,story} = product;
+    const Model3D = dynamic(() => import(`../../components/3Dmodels/${product.jsx}`))
+
     return (
         <div className="flex-col w-screen items-center justify-start">
             <Head>
@@ -17,7 +17,7 @@ const product = ({product}) => {
             </Head>
 
             {/* NFT product */}
-            <NFTProduct Model={Box} nftName={nftName} />
+            <NFTProduct Model={Model3D} nftName={nftName} />
             
             
             {/* NFT basic details */}   

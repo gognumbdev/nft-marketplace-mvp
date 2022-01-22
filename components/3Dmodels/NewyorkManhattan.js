@@ -10,7 +10,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber';
 
-export default function Model({ ...props }) {
+export default function Model({...props}) {
   const group = useRef()
   const { nodes, materials } = useGLTF('/3Dmodel/newyork_manhattan.gltf')
   // Subscribe this component to the render-loop, rotate the mesh every frame

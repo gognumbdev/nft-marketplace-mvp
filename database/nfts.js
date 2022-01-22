@@ -68,7 +68,7 @@ const nftsData = [
         creator:"gognumbdev",
         ownerImage:"https://lh3.googleusercontent.com/ogw/ADea4I40OTFSVDYMHohSaobJahOpB0r8krQoeaKE-SIq=s32-c-mo",
         creatorImage:"https://lh3.googleusercontent.com/ogw/ADea4I40OTFSVDYMHohSaobJahOpB0r8krQoeaKE-SIq=s32-c-mo",
-        nftName:"Bitcoin",
+        nftName:"New York Manhattan",
         blockchain:"polygon",
         blockchainImage:"https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
         price:"700.00",

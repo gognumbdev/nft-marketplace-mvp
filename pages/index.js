@@ -2,8 +2,6 @@ import Head from 'next/head'
 import Banner from '../components/Banner'
 import {Box,AnimatedSphere,Iphone,Macbook,NewyorkManhattan,Ethereum,LedgerNanoS,SquidGame,NFTLogo}  from "../database/models"
 import NFT3D from '../components/NFT3D'
-// import { Canvas } from '@react-three/fiber';
-// import { OrbitControls } from '@react-three/drei/core/OrbitControls';
 
 export default function Home({products}) {
   const models = [Box,AnimatedSphere,Iphone,Macbook,NewyorkManhattan,Ethereum,LedgerNanoS,SquidGame,NFTLogo];
@@ -21,13 +19,13 @@ export default function Home({products}) {
         {/* Landing Page Banner */}
         <div className='flex justify-between items-center'>
           <Banner />
-          <NFT3D Model={models[0]} data={products[0]} angle={true} />
+          <NFT3D data={products[0]} />
         </div>
 
         {/* NFTSets */}
         <div className='grid grid-cols-2 place-items-center'>
-          {models.slice(1,).map((Model,index ) => (
-              <NFT3D Model={Model} data={products[index+1]} />
+          {products.slice(1,).map((nftData,index ) => (
+              <NFT3D data={nftData} key={index} />
             )
           )}
            
@@ -49,10 +47,9 @@ export async function getStaticProps() {
 
   // Fetch products data for the landing page by request to "http://localhost:3000/api/products" route.
   const products = await fetch("http://localhost:3000/api/products").then(res => res.json())
-
   return {
     props: {
-      products,
+      products
     },
   }
 }
