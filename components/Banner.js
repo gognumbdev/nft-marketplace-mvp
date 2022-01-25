@@ -1,39 +1,21 @@
-import NFTCard from "./NFTCard"
-
-const Banner = ({data}) => {
+const Banner = () => {
     return (
-        <div className='flex px-12 py-14 justify-between space-x-5'>
-            <div className="flex-col w-3/6 space-y-5 text-black">
+        <div className='flex-col px-12 py-14 justify-between space-y-5 text-black w-2/4'>
                 <p className="text-4xl font-bold ">
-                    Free 
-                    <span className=""> Creativity</span> 
-                    , Feel 
-                    <span className=""> Story </span> 
-                     and Form 
-                    <span className=""> Community</span> 
+                    Explore Creativity , Story and Interactivity with 3D NFT from creator around the world.
                 </p>
                 <p className="text-xl font-regular ">
-                    Explore your interest NFT with special contract offer from creator.
+                    We build NFT exchange platform to improve your experience with Interactive 3D NFT and support you to exchange your digital assets to your favorites.
                 </p>
-            </div>
-            <NFTCard 
-                key={data.productId}
-                productId={data.productId}
-                image={data.image}
-                owner={data.owner}
-                ownerImage={data.ownerImage}
-                nftName={data.nftName}
-                blockchain={data.blockchain}
-                blockchainImage={data.blockchainImage}
-                price={data.price}
-                unit={data.unit}
-            />
         </div>
     )
 }
 
 export default Banner
 
-//? 1.Explore Creativity , Write Story and Build Community
-//? 2.Creativity , Story and Community
+
+//? 1.Creativity , Story and Community
 //* 3.Exchange your digital items with cryptocurrency to anyone in the world
+
+//*? Explore Interactive 3D NFT experience and Exchange your assets to your favorites.
+
