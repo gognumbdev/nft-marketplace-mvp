@@ -25,7 +25,7 @@ export default function Model({ ...props }) {
   return (
     <group ref={group} {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
-        <group rotation={[Math.PI / 2, 0, 0]} scale={0.1}>
+        <group rotation={[Math.PI / 2, 0, 0]} scale={0.15}>
           <mesh geometry={nodes.BzNfMMFMUvENCVB.geometry} material={nodes.BzNfMMFMUvENCVB.material} />
           <mesh geometry={nodes.vAGUyiVXfoNCfiz.geometry} material={materials.TQlUdQskMqFOeNF} />
           <mesh geometry={nodes.knmwBVvqKBprdhy.geometry} material={materials.ulJMfFlutqmNQMW} />

@@ -1,8 +1,10 @@
-import nftsData from "../../../database/nfts"
-
-export default function handler(req,res) {
-    //* Send back to client only the product dat which match productId
+import dbConnect from "../../../database/dbConnect";
+const NFT = require("../../../database/dbModel/NFT")
+export default async function handler(req,res) {
+    dbConnect();
+    //* Send back to client only the product data which match productId
     const {productId} = req.query;
-    const nftData = nftsData.find(nft => nft.productId === parseInt(productId))
-    res.status(200).json(nftData)
+    const nftData = await NFT.find({productId:productId})
+
+    res.status(200).json(nftData[0])
 }

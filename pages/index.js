@@ -1,11 +1,9 @@
 import Head from 'next/head'
 import Banner from '../components/Banner'
-import {Box,AnimatedSphere,Iphone,Macbook,NewyorkManhattan,Ethereum,LedgerNanoS,SquidGame,NFTLogo}  from "../database/models"
 import NFT3D from '../components/NFT3D'
 
 export default function Home({products}) {
-  const models = [Box,AnimatedSphere,Iphone,Macbook,NewyorkManhattan,Ethereum,LedgerNanoS,SquidGame,NFTLogo];
-  
+
   return (
     <div>
       
@@ -23,7 +21,7 @@ export default function Home({products}) {
         </div>
 
         {/* NFTSets */}
-        <div className='grid grid-cols-2 place-items-center'>
+        <div className='grid grid-cols-2 place-items-center w-full'>
           {products.slice(1,).map((nftData,index ) => (
               <NFT3D data={nftData} key={index} />
             )

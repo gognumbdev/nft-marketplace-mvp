@@ -16,7 +16,7 @@ export default function Model({ ...props }) {
   // Subscribe this component to the render-loop, rotate the mesh every frame
   useFrame((state, delta) => {
     if (props.rotate) {
-        return (group.current.rotation.y += 0.008)
+        return (group.current.rotation.y += 0.01)
     }
   });
   

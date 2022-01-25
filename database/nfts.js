@@ -2,36 +2,6 @@
 const nftsData = [
     {
         productId:0,
-        model:"",
-        jsx:"Box" ,
-        owner:"gognumbdev",
-        creator:"gognumbdev",
-        ownerImage:"https://lh3.googleusercontent.com/ogw/ADea4I40OTFSVDYMHohSaobJahOpB0r8krQoeaKE-SIq=s32-c-mo",
-        creatorImage:"https://lh3.googleusercontent.com/ogw/ADea4I40OTFSVDYMHohSaobJahOpB0r8krQoeaKE-SIq=s32-c-mo",
-        nftName:"Magic Box",
-        blockchain:"polygon",
-        blockchainImage:"https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
-        price:"28.09",
-        unit:"Matic",
-        angle:true
-    },
-    {
-        productId:1,
-        model:"",
-        jsx:"AnimatedSphere",
-        owner:"gognumbdev",
-        creator:"gognumbdev",
-        ownerImage:"https://lh3.googleusercontent.com/ogw/ADea4I40OTFSVDYMHohSaobJahOpB0r8krQoeaKE-SIq=s32-c-mo",
-        creatorImage:"https://lh3.googleusercontent.com/ogw/ADea4I40OTFSVDYMHohSaobJahOpB0r8krQoeaKE-SIq=s32-c-mo",
-        nftName:"Magic Sphere",
-        blockchain:"polygon",
-        blockchainImage:"https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
-        price:"28.09",
-        unit:"Matic",
-        angle:false
-    },
-    {
-        productId:2,
         model:"iphone.gltf",
         jsx:"Iphone",
         owner:"jinnapat",
@@ -46,7 +16,7 @@ const nftsData = [
         angle:false
     },
     {
-        productId:3,
+        productId:1,
         model:"macbook.gltf",
         jsx:"Macbook",
         owner:"jinnapat",
@@ -61,7 +31,7 @@ const nftsData = [
         angle:false
     },
     {
-        productId:4,
+        productId:2,
         model:"newyork_manhattan.gltf",
         jsx:"NewyorkManhattan",
         owner:"gognumbdev",
@@ -73,10 +43,10 @@ const nftsData = [
         blockchainImage:"https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
         price:"700.00",
         unit:"Matic",
-        angle:false
+        angle:true
     },
     {
-        productId:5,
+        productId:3,
         model:"ethereum.gltf",
         jsx:"Ethereum",
         owner:"jinnapat",
@@ -91,7 +61,7 @@ const nftsData = [
         angle:false
     },
     {
-        productId:6,
+        productId:4,
         model:"ledger_nano_s.gltf",
         jsx:"LedgerNanoS",
         owner:"gognumbdev",
@@ -106,7 +76,7 @@ const nftsData = [
         angle:true
     },
     {
-        productId:7,
+        productId:5,
         model:"squid_game.gltf",
         jsx:"SquidGame",
         owner:"jinnapat",
@@ -121,7 +91,7 @@ const nftsData = [
         angle:false
     },
     {
-        productId:8,
+        productId:6,
         model:"nftLogo.gltf",
         jsx:"NFTLogo",
         owner:"gognumbdev",
@@ -129,6 +99,21 @@ const nftsData = [
         ownerImage:"https://lh3.googleusercontent.com/ogw/ADea4I40OTFSVDYMHohSaobJahOpB0r8krQoeaKE-SIq=s32-c-mo",
         creatorImage:"https://lh3.googleusercontent.com/ogw/ADea4I40OTFSVDYMHohSaobJahOpB0r8krQoeaKE-SIq=s32-c-mo",
         nftName:"NFT Logo",
+        blockchain:"polygon",
+        blockchainImage:"https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
+        price:"20.22",
+        unit:"Matic",
+        angle:false
+    },
+    {
+        productId:7,
+        model:"spacex.gltf",
+        jsx:"",
+        owner:"jinnapat",
+        creator:"jinnapat",
+        ownerImage:"https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
+        creatorImage:"https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
+        nftName:"Space X Falcon",
         blockchain:"polygon",
         blockchainImage:"https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
         price:"20.22",
