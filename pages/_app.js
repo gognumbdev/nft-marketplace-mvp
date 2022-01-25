@@ -2,6 +2,8 @@ import Layout from '../components/Layout'
 import '../styles/globals.css'
 import ProgressBar from "@badrap/bar-of-progress";
 import { Router } from 'next/router';
+import { Provider } from 'react-redux';
+import { useStore } from '../redux/store';
 
 const progress = new ProgressBar({
   size:4,
@@ -16,11 +18,14 @@ Router.events.on('routeChangeError',progress.finish);
 
 
 function MyApp({ Component, pageProps }) {
+  const store = useStore(pageProps.initialReduxState)
+  
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-    
+    <Provider store={store}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </Provider>
   )
 }
 

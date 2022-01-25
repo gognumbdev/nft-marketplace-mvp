@@ -4,47 +4,32 @@ import {
 import { ethers } from 'ethers';
 import { useRouter } from 'next/router'
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../redux/action';
 
 
 const Navbar = () => {
     const router = useRouter();
-    const [address, setAddress] = useState("");
-    
-    if (typeof window !== "undefined") {
-        const {ethereum} = window
-        const getUserData = async () => {
-            const provider = new ethers.providers.Web3Provider(ethereum)
-            const signer = provider.getSigner();
-            const userAddress = await signer.getAddress();
-            // const account = await provider.send("eth_requestAccounts", []);
-            // setAddress(account[0]);
-            setAddress(userAddress);
-
-        }
-
-        // run only when user need to log in. 
-
-        if (ethereum.isConnected()) {
-            getUserData();
-        }
-
-        window.ethereum.on('accountChanged',() => window.location.reload());
-
-
-    }
+    const dispatch = useDispatch(); 
+    const user = useSelector(state => state.user)
 
     const goToProfile = () => {
         router.push({
             pathname:'/profile/[uid]',
             query: { 
-                uid:address,
+                uid:user.walletAddress,
             }
         })
     }
 
     const logout = () => {
-        setAddress("");
+        dispatch(logOut());
+        router.push("/");
+        window.location.reload();
     }
+
+    
 
     return (
         <div className="fixed top-0 flex justify-between items-center shadow-md h-12 md:h-16 px-10 py-4 text-base lg:text-2xl 
@@ -70,7 +55,7 @@ const Navbar = () => {
                         Feedback
                 </p>
                 
-                {address ? (
+                {user?.walletAddress ? (
                     <div className='flex items-center space-x-5'>
                         <UserCircleIcon 
                             className='h-6 lg:h-8 cursor-pointer hover:bg-amber-500 rounded-full  transition transform duration-300 ease-out' 
@@ -93,8 +78,6 @@ const Navbar = () => {
                     </button>
                 )}
                 
-                {/* <UserCircleIcon className='h-8 '/>     */}
-                {/* Man Icon to go to profile page*/}
             </div>
         </div>
     )

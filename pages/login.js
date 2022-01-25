@@ -3,59 +3,71 @@ import Image from "next/image";
 import metamaskLogo from "../public/image/metamask.png"
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { logIn } from "../redux/action";
+import { useState } from "react";
 
 const login = () => {
     const router = useRouter();
-    // if (typeof window !== "undefined") {
-    //     const {ethereum} =window;
-    //     // Initial Check prepare for connecct to MetaMask.
-    //     ethereum.isMetaMask ? console.log("MetaMask is install"): alert("Please install MetaMask extension on your browser.") 
-    //     ethereum.isConnected() ? console.log("MetaMask is connected"): console.log("MetaMask is not connected.") 
-    // }
-    
+    const dispatch = useDispatch();
+    // const [address, setAddress] = useState("");
+    // const [balance, setBalance] = useState(0.0);
+    // const [network,setNetwork] = useState({});
+
+    const connectAndDispatch = () => {
+            connectWallet().then(({userAddress,userBalance,userNetwork}) => {
+                console.log("Result then :",userAddress,userBalance,userNetwork);
+                dispatch(logIn(
+                    {
+                        username: "username",
+                        walletAddress: userAddress,
+                        balance:userBalance,
+                        network:userNetwork,
+                        profileImage: "", 
+                        description: "user desciption",
+                        socialNetworks: [
+                            {
+                                name: "twitter",
+                                value: "user twitter",
+                                link: "https://twitter.com"
+                            },
+                            {
+                                name: "instagram",
+                                value: "user instagram",
+                                link: "https://www.instagram.com"
+                            },
+                        ],
+                    }
+                ))
+                router.push("/")
+            })
+    }
+
     const connectWallet = async () => {
+        
         if (typeof window !== "undefined") {
             const {ethereum} =window;
             
-            //* Initial Check prepare for connecct to MetaMask.
-            if(ethereum.isMetaMask){
-                console.log("MetaMask is install") 
-            }else{
-                alert("Please install MetaMask extension on your browser.") ;
-                return
-            }
-            
-            if(ethereum.isConnected()){
-                console.log("MetaMask is already connected.") 
-                router.push("/")
-                return
-            }
-            
-            
-            //* A Web3Provider wraps a standard Web3 provider, which is
-            //* what MetaMask injects as window.ethereum into each page
+            await ethereum.enable()
+        
+            //* Get user log in with Metamask wallet 
             const provider = new ethers.providers.Web3Provider(ethereum)
-            const signer = provider.getSigner();
+            const signer =  provider.getSigner();
+            const userNetwork = await provider.getNetwork();
+            const userAddress = await signer.getAddress();
+            // const userAddress = await ethereum.request({ method: 'eth_accounts' });
+            const userBalance = await signer.getBalance()
             
-            // const account = await provider.send("eth_requestAccounts", []);
-            // getNetwork() =>
-            // { chainId: 1,
-            //   ensAddress: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
-            //   name: 'homestead'
-            // }
-
-            const network = await provider.getNetwork();
-            const address = await signer.getAddress();
-            // const resolver = await provider.getResolver(network.name);
-            // const balance = await provider.getBalance(network.ensAddress);            
-            console.log("sign in !");
-            console.log(network);
-            console.log(address);
+            console.log("request result:",userNetwork,userAddress,userBalance);
             
-            // console.log(resolver.name);
-            // console.log(resolver.address);
+            return ({userNetwork,userAddress,userBalance})
+            //* set local state
+            // setNetwork(userNetwork);
+            // setAddress(userAddress);
+            // setBalance(ethers.utils.formatEther(userBalance));
         }
-    }   
+    }
+
 
     return (
         <div className="w-full grid grid-cols-1 h-screen gap-y-4 content-start place-items-center">
@@ -73,7 +85,7 @@ const login = () => {
             >
                 <div 
                     className="flex space-x-5 rounded justify-start items-center transform transition duration-150 ease-in hover:scale-y-105 hover:shadow-xl cursor-pointer"
-                    onClick={connectWallet}
+                    onClick={connectAndDispatch}
                 >
                     <Image 
                         height={60}

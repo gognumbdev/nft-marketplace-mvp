@@ -6,8 +6,8 @@ import {SwitchHorizontalIcon} from "@heroicons/react/outline"
 import dynamic from "next/dynamic";
 
 const NFT3D = ({data}) => {
-    const Model3D = dynamic(() => import(`./3Dmodels/${data.jsx}`))
     const [rotate, setRotate] = useState(false);
+    const Model3D = dynamic(() => import(`./3Dmodels/${data.jsx}`))
 
     let camera = data.angle ? {fov: 75, near: 0.1, far: 1000, position: [3, 3, 3]} : {} ;
 

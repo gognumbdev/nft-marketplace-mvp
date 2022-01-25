@@ -2,6 +2,8 @@ import NFTSet from '../../components/NFTSet'
 import Image from 'next/image'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
+import { ethers } from 'ethers'
 
 // const product_data = {
 //     image:"https://lh3.googleusercontent.com/T_QvX8TVs6KczTHtXX8OMLVpiyDCvVKLmAczU4bdDZ0OSNVk-G7kGov9VV0MB3WIMFCA_nLXM5G7BjzxJ2IBxgTz5z__DfKKO3Pn=w600",
@@ -18,6 +20,10 @@ import { useRouter } from 'next/router'
 const ProfilePage = () => {
     const router = useRouter();
     const {uid} = router.query;
+    const user = useSelector(state => state.user)
+
+    console.log(user);
+
     return (
         <div className="p-6 space-y-6">
             <Head>
@@ -25,7 +31,17 @@ const ProfilePage = () => {
             </Head>
             
             <div className=''>
-                <p className='text-xl'>{uid}</p>
+                <p className='text-xl'>{user.username}</p>
+                <p className='text-xl'>{user.walletAddress}</p>
+                <p className='text-xl'>{ethers.utils.formatEther(user.balance)}</p>
+                <p className='text-xl'>{user.network.name}</p>
+                {user.socialNetworks.map(social => (
+                    <div className='flex-col'>
+                        <p className='text-lg'>{social.name}</p>
+                        <p className='text-lg'>{social.value}</p>
+                        <p className='text-lg'>{social.link}</p>
+                    </div>
+                ))}
             </div>
             {/* <ProfileInfo {...user_data}/>
             <NFTSet data={product_data}/> */}
