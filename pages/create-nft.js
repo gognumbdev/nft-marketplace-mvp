@@ -4,6 +4,7 @@ import Head from "next/head"
 import Box from "../components/3Dmodels/Box"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
+import NFT3D from "../components/NFT3D"
 
 const data = {
     image:"https://lh3.googleusercontent.com/T_QvX8TVs6KczTHtXX8OMLVpiyDCvVKLmAczU4bdDZ0OSNVk-G7kGov9VV0MB3WIMFCA_nLXM5G7BjzxJ2IBxgTz5z__DfKKO3Pn=w600",
@@ -38,15 +39,6 @@ const CreatePage = () => {
                     Submit
                 </button>
             </div>
-
-            <Canvas className="canvas cursor-pointer bg-slate-400">
-                <OrbitControls />
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[-2,5,2]} intensity={1} />
-                <Suspense fallback={null}>
-                    <Box />
-                </Suspense>
-            </Canvas>
             
         </div>
     )

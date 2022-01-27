@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic'
 
 
 const product = ({product}) => {
+    console.log(product);
     const {productId,owner,creator,ownerImage,creatorImage,nftName,blockchain,blockchainImage,price,unit,story} = product;
     const Model3D = dynamic(() => import(`../../components/3Dmodels/${product.jsx}`))
 

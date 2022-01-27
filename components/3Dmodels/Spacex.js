@@ -8,10 +8,17 @@ title: SpaceX Falcon 9 Block 4.5
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber';
 
 export default function Model({ ...props }) {
   const group = useRef()
   const { nodes, materials } = useGLTF('/3Dmodel/spacex.gltf')
+  useFrame((state, delta) => {
+    if (props.rotate) {
+        return (group.current.rotation.x += 0.008)
+    }
+  });
+  
   return (
     <group ref={group} {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>

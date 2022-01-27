@@ -10,7 +10,7 @@ const AnimatedSphere = ({rotate}) => {
   // Subscribe this component to the render-loop, rotate the mesh every frame
   useFrame((state, delta) => {
       if (rotate) {
-          return (ref.current.rotation.z += 0.008)
+          return (ref.current.rotation.z += 0.01)
       }
   });
 
