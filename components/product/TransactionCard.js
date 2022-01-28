@@ -1,6 +1,9 @@
-import { useState } from "react"
+import { useSelector } from "react-redux"
 
-const TransactionCard = ({price, offering ,unit,blockchainImage,blockchain}) => {
+
+const TransactionCard = ({price,ownerWalletAddress,unit,blockchainImage,blockchain}) => {
+    const user = useSelector(state => state.user)
+
 
     return (
         <div className="flex-col w-96 h-fit justify-start shadow-xl rounded-lg bg-white py-2 px-10 font-semibold">
@@ -21,9 +24,19 @@ const TransactionCard = ({price, offering ,unit,blockchainImage,blockchain}) => 
             </div>
 
             {/* Make Transaction button */}
-                <button className="mt-2 bg-amber-500 py-1 w-2/6 rounded hover:scale-105 transform transition duration-300 ease-out">
-                    buy
-                </button>
+                {ownerWalletAddress === user.walletAddress 
+                    ? (
+                        <button className="mt-2 bg-green-500 py-1 w-2/6 rounded hover:scale-105 transform transition duration-300 ease-out text-white">
+                            sell
+                        </button>
+                    ) 
+                    : (
+                        <button className="mt-2 bg-amber-500 py-1 w-2/6 rounded hover:scale-105 transform transition duration-300 ease-out">
+                            buy
+                        </button>
+                    ) 
+                }
+                
             
         </div>
     )

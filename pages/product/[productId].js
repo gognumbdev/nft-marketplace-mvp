@@ -4,11 +4,12 @@ import NFTProduct from "../../components/product/NFTProduct";
 import OwnershipCard from "../../components/product/OwnershipCard";
 import TransactionCard from "../../components/product/TransactionCard";
 import dynamic from 'next/dynamic'
+import { useRouter } from "next/router";
 
 
-const product = ({product}) => {
-    console.log(product);
-    const {productId,owner,creator,ownerImage,creatorImage,nftName,blockchain,blockchainImage,price,unit,story} = product;
+const product = ({product,owner,creator}) => {
+    const router= useRouter();
+    const {productId,creatorWalletAddress,nftName,blockchain,blockchainImage,price,unit,ownerWalletAddress} = product;
     const Model3D = dynamic(() => import(`../../components/3Dmodels/${product.jsx}`))
 
     return (
@@ -23,29 +24,29 @@ const product = ({product}) => {
             
             {/* NFT basic details */}   
             <div className="flex justify-around px-10">
-                <OwnershipCard owner={owner} ownerImage={ownerImage} creator={creator} creatorImage={creatorImage}/>
-                <TransactionCard price={price} unit={unit} blockchainImage={blockchainImage} blockchain={blockchain} />
+                <OwnershipCard owner={owner} creator={creator} router={router} />
+                <TransactionCard price={price} unit={unit} blockchainImage={blockchainImage} blockchain={blockchain} ownerWalletAddress={ownerWalletAddress} />
             </div>
     
         </div>
     )
 }
 
-export async function getStaticPaths() {
-    // Fetch products data for the landing page by request to "http://localhost:3000/api/products" route.
-    const res = await fetch("http://localhost:3000/api/products")
-    const products = await res.json();
-    const paths = products.map(nft => ({ params:{productId:nft.productId.toString()} })) 
-    return {paths,fallback: false};
-}
+// This gets called on every request
+export async function getServerSideProps(context) {
+    let productId = context.params.productId
 
-export async function getStaticProps(context) {
-    const productId = context.params.productId;
-    // Fetch products data for the landing page by request to "http://localhost:3000/api/products" route.
-    const res = await fetch(`http://localhost:3000/api/products/${productId}`);
-    const product = await res.json();
-  
-    return {props: {product}}
+    const res = await fetch(`http://localhost:3000/api/products/${productId}`)
+    const product = await res.json()
+
+    const ownerRes = await fetch(`http://localhost:3000/api/profile/${product.ownerWalletAddress}`)
+    const owner = await ownerRes.json()
+
+    const creatorRes = await fetch(`http://localhost:3000/api/profile/${product.creatorWalletAddress}`)
+    const creator = await creatorRes.json()
+
+
+    return { props: { product ,owner,creator} }
 }
 
 export default product

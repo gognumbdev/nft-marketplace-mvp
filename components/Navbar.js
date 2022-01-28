@@ -1,9 +1,6 @@
-import {
-    UserCircleIcon,
-} from '@heroicons/react/outline'
-import { ethers } from 'ethers';
+import {UserCircleIcon,LogoutIcon,LoginIcon,CreditCardIcon} from '@heroicons/react/outline'
 import { useRouter } from 'next/router'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../redux/action';
@@ -13,20 +10,26 @@ const Navbar = () => {
     const router = useRouter();
     const dispatch = useDispatch(); 
     const user = useSelector(state => state.user)
+    const {walletAddress} = useSelector(state => state.user)
+    const [userData,setUserData] = useState();
+
+    useEffect(async () => {
+        const res = await fetch(`http://localhost:3000/api/profile/${walletAddress}`)
+        const userData = await res.json()
+        setUserData(userData);
+    },[user])
 
     const goToProfile = () => {
         router.push({
-            pathname:'/profile/[uid]',
+            pathname:'/profile/[walletAddress]',
             query: { 
-                uid:user.walletAddress,
+                walletAddress:walletAddress,
             }
         })
     }
 
     const logout = () => {
-        dispatch(logOut());
-        router.push("/");
-        window.location.reload();
+        dispatch(logOut())
     }
 
     
@@ -55,25 +58,46 @@ const Navbar = () => {
                         Feedback
                 </p>
                 
-                {user?.walletAddress ? (
+                {walletAddress ? (
                     <div className='flex items-center space-x-5'>
-                        <UserCircleIcon 
-                            className='h-6 lg:h-8 cursor-pointer hover:bg-amber-500 rounded-full  transition transform duration-300 ease-out' 
-                            onClick={goToProfile}
-                        />
+                        {userData?.profileImage ? (
+                            <div className='flex justify-center items-center space-x-2 cursor-pointer hover:scale-105
+                             border-slate-500 bg-gray-200 rounded-full border-2 p-2 hover:-translate-y-1 hover:bg-amber-500 
+                                transition transform duration-200 ease-out'
+                                onClick={goToProfile}
+                            >
+                                <img 
+                                    src={userData.profileImage} 
+                                    alt={userData.username}
+                                    className='rounded-full'
+                                />
+                                <p className='text-xs md:text-base'>
+                                    {userData.username}
+                                </p>
+                            </div>
+                            
+                        ) : (
+                            <UserCircleIcon 
+                                className='h-6 lg:h-8 cursor-pointer hover:bg-amber-500 rounded-full  transition transform duration-300 ease-out' 
+                                onClick={goToProfile}
+                            />
+                        )}
+                        
                         <button 
-                            className='text-sm lg:text-base hover:shadow-xl hover:bg-black border-2 border-slate-500 hover:text-white rounded p-2 hover:scale-95 transition transform duration-300 ease-out'
+                            className='flex justify-center items-center text-sm lg:text-base hover:shadow-xl hover:bg-black border-2 border-slate-500 hover:text-white 
+                            rounded px-2 hover:scale-95 transition transform duration-300 ease-out space-x-1'
                             onClick={logout}
                             >
-                            Log Out
+                            <LogoutIcon className='h-8' />
+                            <p>Log Out</p> 
                         </button>
                     </div>
                     
                 ) : (
                     <button 
                         onClick={() => router.push("/login")}
-                        className="px-2 py-2 border-1 font-medium rounded bg-amber-500 text-sm lg:text-base 
-                        hover:scale-105 transform transition duration-150 ease-out">
+                        className="px-4 py-2 border-1 font-medium rounded-full bg-amber-500 text-sm lg:text-base
+                        hover:scale-105 transform transition duration-150 ease-out flex justify-center items-center space-x-2">
                         Connect Wallet
                     </button>
                 )}

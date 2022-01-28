@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const {NFTSchema} = require("./NFT")
 
 const userSocialSchema = new mongoose.Schema({
     name: String,
@@ -13,26 +14,29 @@ const networkSchema = new mongoose.Schema({
 })
 
 const transactionSchema = new mongoose.Schema({
+    nftName:String,
     nftContract:String,
     fromAddress:String,
     toAddress:String,
     value:Number,
     network:networkSchema,
     unit:String,
-    date:Date,
+    date:String,
 })
 
 const UserSchema = new mongoose.Schema({
     username: String,
     walletAddress: String,
-    network:networkSchema,
-    chainId:Number,
     profileImage: String,
     description: String,
     socialNetworks: [userSocialSchema],
-    transactions:[transactionSchema]
+    transactions:[transactionSchema],
+    listedNFT:[NFTSchema],
+    ownedNFT:[NFTSchema]
 })
 
-export default (mongoose.models && mongoose.models.User
+const UserModel = (mongoose.models && mongoose.models.User
     ? mongoose.models.User
     : mongoose.model('User', UserSchema));
+
+module.exports = {UserModel}

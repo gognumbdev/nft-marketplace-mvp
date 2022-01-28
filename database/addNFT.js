@@ -1,166 +1,74 @@
 const mongoose = require("mongoose")
 const dbConnect = require("./dbConnect")
-const NFT = require("./dbModel/NFT")
+const {NFTModel} = require("./dbModel/NFT")
 
 // Connect to our MongoDB Database
 dbConnect().catch(error => console.log(error));
 
 const nfts = [
     {
-    "_id": "61ed13c4cf6b391ce162fef8",
-    "productId": 0,
-    "model": "iphone.gltf",
-    "jsx":"Iphone.js",
-    "owner": "jinnapat",
-    "creator": "jinnapat",
-    "ownerImage": "https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
-    "creatorImage": "https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
-    "nftName": "Iphone",
-    "blockchain": "polygon",
-    "blockchainImage": "https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
-    "price": 108.08,
-    "unit": "Matic",
-    "angle": false,
-    "__v": 0
-    },
-    {
-    "_id": "61ed164d249e7ed07738f4c2",
-    "productId": 1,
-    "model": "macbook.gltf",
-    "jsx":"Macbook.js",
-    "owner": "jinnapat",
-    "creator": "jinnapat",
-    "ownerImage": "https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
-    "creatorImage": "https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
-    "nftName": "Macbook",
-    "blockchain": "polygon",
-    "blockchainImage": "https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
-    "price": 214,
-    "unit": "Matic",
-    "angle": false,
-    "__v": 0
-    },
-    {
-    "_id": "61ed164d249e7ed07738f4c3",
-    "productId": 2,
-    "model": "newyork_manhattan.gltf",
-    "jsx":"NewyorkManhattan.js",
-    "owner": "gognumbdev",
-    "creator": "gognumbdev",
-    "ownerImage": "https://lh3.googleusercontent.com/ogw/ADea4I40OTFSVDYMHohSaobJahOpB0r8krQoeaKE-SIq=s32-c-mo",
-    "creatorImage": "https://lh3.googleusercontent.com/ogw/ADea4I40OTFSVDYMHohSaobJahOpB0r8krQoeaKE-SIq=s32-c-mo",
-    "nftName": "New York Manhattan",
-    "blockchain": "polygon",
-    "blockchainImage": "https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
-    "price": 700,
-    "unit": "Matic",
-    "angle": true,
-    "__v": 0
-    },
-    {
-    "_id": "61ed164d249e7ed07738f4c4",
-    "productId": 3,
-    "model": "ethereum.gltf",
-    "jsx":"Ethereum.js",
-    "owner": "jinnapat",
-    "creator": "jinnapat",
-    "ownerImage": "https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
-    "creatorImage": "https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
-    "nftName": "Ethereum",
-    "blockchain": "polygon",
-    "blockchainImage": "https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
-    "price": 500,
-    "unit": "Matic",
-    "angle": false,
-    "__v": 0
-    },
-    {
-    "_id": "61ed164d249e7ed07738f4c5",
-    "productId": 4,
-    "model": "ledger_nano_s.gltf",
-    "jsx":"LedgerNanoS",
-    "owner": "gognumbdev",
-    "creator": "gognumbdev",
-    "ownerImage": "https://lh3.googleusercontent.com/ogw/ADea4I40OTFSVDYMHohSaobJahOpB0r8krQoeaKE-SIq=s32-c-mo",
-    "creatorImage": "https://lh3.googleusercontent.com/ogw/ADea4I40OTFSVDYMHohSaobJahOpB0r8krQoeaKE-SIq=s32-c-mo",
-    "nftName": "Ledger Nano S",
-    "blockchain": "polygon",
-    "blockchainImage": "https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
-    "price": 350.31,
-    "unit": "Matic",
-    "angle": true,
-    "__v": 0
-    },
-    {
-    "_id": "61ed164d249e7ed07738f4c6",
-    "productId": 5,
-    "model": "squid_game.gltf",
-    "jsx":"SquidGame.js",
-    "owner": "jinnapat",
-    "creator": "jinnapat",
-    "ownerImage": "https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
-    "creatorImage": "https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
-    "nftName": "Squid Game",
-    "blockchain": "polygon",
-    "blockchainImage": "https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
-    "price": 33.33,
-    "unit": "Matic",
-    "angle": false,
-    "__v": 0
-    },
-    {
-    "_id": "61ed164d249e7ed07738f4c7",
-    "productId": 6,
-    "model": "nftLogo.gltf",
-    "jsx":"NFTLogo.js",
-    "owner": "gognumbdev",
-    "creator": "gognumbdev",
-    "ownerImage": "https://lh3.googleusercontent.com/ogw/ADea4I40OTFSVDYMHohSaobJahOpB0r8krQoeaKE-SIq=s32-c-mo",
-    "creatorImage": "https://lh3.googleusercontent.com/ogw/ADea4I40OTFSVDYMHohSaobJahOpB0r8krQoeaKE-SIq=s32-c-mo",
-    "nftName": "NFT Logo",
-    "blockchain": "polygon",
-    "blockchainImage": "https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
-    "price": 20.22,
-    "unit": "Matic",
-    "angle": false,
-    "__v": 0
-    },
-    {
-    "_id": "61ed164d249e7ed07738f4c8",
-    "productId": 7,
-    "model": "spacex.gltf",
-    "jsx":"Spacex.js",
-    "owner": "jinnapat",
-    "creator": "jinnapat",
-    "ownerImage": "https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
-    "creatorImage": "https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
-    "nftName": "Space X Falcon",
-    "blockchain": "polygon",
-    "blockchainImage": "https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
-    "price": 20.22,
-    "unit": "Matic",
-    "angle": false,
-    "__v": 0
+        nftContract:"0x47474CaA8383e015C0b3f22b2AE2fD8b794E4C8e",
+        productId:"0",
+        model:"iphone.gltf",
+        jsx:"Iphone",
+        owner:"gognumbdev",
+        ownerWalletAddress:"0x5593572e312C4F8Fc2fe924907624B39D1d6B65c",
+        creator:"Free Flow Marketplace",
+        creatorWalletAddress:"0x518707e145604eA17eA6fd319Fa65DCD2E96Eb34",
+        nftName:"Iphone",
+        blockchain:"polygon",
+        blockchainImage:"https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
+        price:108.08,
+        unit:"Matic",
+        transaction:[
+            {
+                nftContract:"0x47474CaA8383e015C0b3f22b2AE2fD8b794E4C8e",
+                fromAddress:"0x518707e145604eA17eA6fd319Fa65DCD2E96Eb34",
+                toAddress:"0x5593572e312C4F8Fc2fe924907624B39D1d6B65c",
+                value:108.08,
+                network:{
+                    chainId: 1,
+                    ensAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
+                    name: "homestead"
+                },
+                unit:"Matic",
+                date:new Date().toString(),
+            }
+        ],
     }
 ]
 
 const createNFT = async () => {
-    const newNFT = new NFT({
-        productId:0,
+    const newNFT = new NFTModel({
+        nftContract:"0x47474CaA8383e015C0b3f22b2AE2fD8b794E4C8e",
+        productId:"0",
         model:"iphone.gltf",
         jsx:"Iphone",
-        owner:"jinnapat",
-        ownerWalletId:"",
-        CreatorWalletId:"",
-        creator:"jinnapat",
-        ownerImage:"https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
-        creatorImage:"https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
+        owner:"gognumbdev",
+        ownerWalletAddress:"0x5593572e312C4F8Fc2fe924907624B39D1d6B65c",
+        creator:"Free Flow Marketplace",
+        creatorWalletAddress:"0x518707e145604eA17eA6fd319Fa65DCD2E96Eb34",
         nftName:"Iphone",
         blockchain:"polygon",
         blockchainImage:"https://finematics.com/wp-content/uploads/2021/04/polygon-logo-270x250.png",
-        price:"108.08",
+        price:108.08,
         unit:"Matic",
-        angle:false
+        transaction:[
+            {
+                nftName:"Iphone",
+                nftContract:"0x47474CaA8383e015C0b3f22b2AE2fD8b794E4C8e",
+                fromAddress:"0x518707e145604eA17eA6fd319Fa65DCD2E96Eb34",
+                toAddress:"0x5593572e312C4F8Fc2fe924907624B39D1d6B65c",
+                value:108.08,
+                network:{
+                    chainId: 1,
+                    ensAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
+                    name: "homestead"
+                },
+                unit:"Matic",
+                date:new Date().toString(),
+            }
+        ]
     })
        
     try{
@@ -171,13 +79,13 @@ const createNFT = async () => {
     }
 }
 
-// createNFT();
+createNFT();
 
-const insertManyNFT = async () => {
-    NFT.insertMany(nfts, function(error, docs) {console.log(error);});
-}
+// const insertManyNFT = async () => {
+//     NFT.insertMany(nfts, function(error, docs) {console.log(error);});
+// }
 
-insertManyNFT();
+// insertManyNFT();
 
 
 

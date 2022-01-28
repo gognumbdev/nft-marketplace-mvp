@@ -4,7 +4,7 @@ const nftsData = [
         productId:0,
         model:"iphone.gltf",
         jsx:"Iphone",
-        owner:"jinnapat",
+        owner:"gognumbdev",
         creator:"jinnapat",
         ownerImage:"https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
         creatorImage:"https://lh3.googleusercontent.com/a-/AOh14GjhoOWeq65UaN_jCrmRS2nkzxnl7lCFIu98tZVIJg=s100",
