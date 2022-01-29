@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose"
 const {NFTSchema} = require("./NFT")
 
 const userSocialSchema = new mongoose.Schema({
@@ -35,8 +35,9 @@ const UserSchema = new mongoose.Schema({
     ownedNFT:[NFTSchema]
 })
 
-const UserModel = (mongoose.models && mongoose.models.User
+
+let UserModel =  (mongoose.models && mongoose.models.User
     ? mongoose.models.User
-    : mongoose.model('User', UserSchema));
+    : mongoose.model('User', UserSchema))
 
 module.exports = {UserModel}

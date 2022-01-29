@@ -1,29 +1,20 @@
-import {UserCircleIcon,LogoutIcon,LoginIcon,CreditCardIcon} from '@heroicons/react/outline'
+import {UserCircleIcon,LogoutIcon} from '@heroicons/react/outline'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { logOut } from '../redux/action';
-
+import { logOut } from '../redux/actions/userAction';
 
 const Navbar = () => {
     const router = useRouter();
     const dispatch = useDispatch(); 
     const user = useSelector(state => state.user)
-    const {walletAddress} = useSelector(state => state.user)
-    const [userData,setUserData] = useState();
-
-    useEffect(async () => {
-        const res = await fetch(`http://localhost:3000/api/profile/${walletAddress}`)
-        const userData = await res.json()
-        setUserData(userData);
-    },[user])
 
     const goToProfile = () => {
         router.push({
             pathname:'/profile/[walletAddress]',
             query: { 
-                walletAddress:walletAddress,
+                walletAddress:user.walletAddress,
             }
         })
     }
@@ -32,16 +23,17 @@ const Navbar = () => {
         dispatch(logOut())
     }
 
-    
-
     return (
         <div className="fixed top-0 flex justify-between items-center shadow-md h-12 md:h-16 px-10 py-4 text-base lg:text-2xl 
             z-50 w-screen bg-gradient-to-r from-gray-100 to-slate-300">
+            {/* Platform Logo */}
             <h1 className="hover:cursor-pointer font-bold" onClick={() => router.push("/")}>
                 <span className='text-blue-500'>Free</span>
                 <span className='text-amber-500'>Flow</span>
             </h1>
-            <div className="flex items-center justify-around w-3/6 px-5 space-x-10 ">
+
+            {/* Right set */}
+            <div className="flex items-center justify-end w-4/6 px-5 space-x-10 ">
                 <p 
                     className='cursor-pointer'
                     onClick={() => router.push("/create-nft")}>
@@ -58,34 +50,34 @@ const Navbar = () => {
                         Feedback
                 </p>
                 
-                {walletAddress ? (
+                {user.walletAddress ? (
                     <div className='flex items-center space-x-5'>
-                        {userData?.profileImage ? (
-                            <div className='flex justify-center items-center space-x-2 cursor-pointer hover:scale-105
-                             border-slate-500 bg-gray-200 rounded-full border-2 p-2 hover:-translate-y-1 hover:bg-amber-500 
-                                transition transform duration-200 ease-out'
+                        {user?.profileImage ? (
+                            <div className='flex justify-center items-center space-x-2 cursor-pointer
+                             border-slate-500 bg-gray-100 rounded-full border-2 p-2 hover:-translate-y-1 hover:bg-amber-500 
+                                transition transform duration-200 ease-out w-fit active:scale-95'
                                 onClick={goToProfile}
                             >
                                 <img 
-                                    src={userData.profileImage} 
-                                    alt={userData.username}
-                                    className='rounded-full'
+                                    src={user.profileImage} 
+                                    alt={user.username}
+                                    className='rounded-full h-10'
                                 />
                                 <p className='text-xs md:text-base'>
-                                    {userData.username}
+                                    {user.username}
                                 </p>
                             </div>
                             
                         ) : (
                             <UserCircleIcon 
-                                className='h-6 lg:h-8 cursor-pointer hover:bg-amber-500 rounded-full  transition transform duration-300 ease-out' 
+                                className='h-6 lg:h-8 cursor-pointer hover:bg-amber-500 rounded-full transition transform duration-300 ease-out' 
                                 onClick={goToProfile}
                             />
                         )}
                         
                         <button 
                             className='flex justify-center items-center text-sm lg:text-base hover:shadow-xl hover:bg-black border-2 border-slate-500 hover:text-white 
-                            rounded px-2 hover:scale-95 transition transform duration-300 ease-out space-x-1'
+                            rounded px-2 transition transform duration-300 ease-out space-x-1'
                             onClick={logout}
                             >
                             <LogoutIcon className='h-8' />

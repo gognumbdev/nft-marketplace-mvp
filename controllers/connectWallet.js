@@ -1,74 +1,87 @@
 import { ethers } from "ethers";
-import { UserModel } from "../database/dbModel/User";
-import { logIn } from "../redux/action";
+import { logIn } from "../redux/actions/userAction";
 
 const connectWallet = async () => {
+    let requestMessage = "Please sign to get sign in to our marketplace platform"
 
     if (typeof window !== "undefined") {
-        const {ethereum} =window;
+        try {
+            const {ethereum} =window;
         
-        await ethereum.enable()
+            await ethereum.enable()
 
-        //* Get user log in with Metamask wallet 
-        const provider = new ethers.providers.Web3Provider(ethereum)
-        const signer =  provider.getSigner();
-        const userNetwork = await provider.getNetwork();
-        const userAddress = await signer.getAddress();
-        // const userAddress = await ethereum.request({ method: 'eth_accounts' });
-        const userBalance = await signer.getBalance()
-        
-        console.log("request result:",userNetwork,userAddress,userBalance);
-        
-        return ({userNetwork,userAddress,userBalance})
-        //* set local state
+            //* Get user log in with Metamask wallet 
+            const provider = new ethers.providers.Web3Provider(ethereum)
+            const signer =  provider.getSigner();
+            const signature = await signer.signMessage(requestMessage);
+            const userNetwork = await provider.getNetwork();
+            const userAddress = await signer.getAddress();
+            const userBalance = await signer.getBalance()
+
+            let permission = await verifyMessage(
+                {
+                    message:requestMessage,
+                    address:userAddress,
+                    signature
+                }
+            )
+
+            console.log(permission);
+            
+            console.log("request result:",userNetwork,userAddress,userBalance);
+            
+            return ({permission,userAddress,userNetwork,userBalance})
+            
+
+        } catch (error) {
+            return ({permission:false})
+        }
     }
 }
 
-const connectAndDispatch =(dispatch,router) => {
+const connectAndDispatch = (dispatch,router) => {
     
-    connectWallet().then( async ({userAddress,userBalance,userNetwork}) => {
-        
-        // const userData = await UserModel.find({walletAddress:userAddress});
+    connectWallet().then( async ({permission,userAddress,userBalance,userNetwork}) => {
 
-        // console.log(userData)
+        //! if !permission === true -> You don't get signature permission from user for sign them in your web application.
+        if (!permission) {
+            console.log("You don't get permission");
+            return ;
+        }
+
+        //* if !permission === false -> You get permission from user to sign them in your web application , let's continue
+        const res = await fetch(`http://localhost:3000/api/profile/${userAddress}`)
+        const userData = await res.json()
+        
 
         dispatch(logIn(
             {
+                username: userData.username,
                 walletAddress: userAddress,
                 balance:userBalance,
                 network:userNetwork,
+                profileImage: userData.profileImage ,
             }
         ))
         router.push("/")
-    })    
-}
 
-const checkConnectAndDispatch = (dispatch) => {
-    connectWallet().then(({userAddress,userBalance,userNetwork}) => {
-        dispatch(logIn(
-            {
-                username: "username",
-                walletAddress: userAddress,
-                balance:userBalance,
-                network:userNetwork,
-                profileImage: "", 
-                description: "user desciption",
-                socialNetworks: [
-                    {
-                        name: "twitter",
-                        value: "user twitter",
-                        link: "https://twitter.com"
-                    },
-                    {
-                        name: "instagram",
-                        value: "user instagram",
-                        link: "https://www.instagram.com"
-                    },
-                ],
-            }
-        ))
+        return userAddress ;
     })
 }
 
+const verifyMessage = async ({ message, address, signature }) => {
+    try {
+      const signerAddress = await ethers.utils.verifyMessage(message, signature);
+      if (signerAddress !== address) {
+        return false;
+      }
+  
+      return true;
 
-export {connectWallet,connectAndDispatch,checkConnectAndDispatch}
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
+
+export {connectWallet,connectAndDispatch,verifyMessage}

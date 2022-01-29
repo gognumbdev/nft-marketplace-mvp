@@ -1,8 +1,14 @@
 import Head from 'next/head'
+import { useSelector } from 'react-redux'
 import Banner from '../components/Banner'
 import NFT3D from '../components/NFT3D'
 
+
 export default function Home({products}) {
+  const user = useSelector(state => state.user)
+
+  console.log(user);
+  
 
   return (
     <div>
@@ -28,9 +34,7 @@ export default function Home({products}) {
           )}
            
         </div>     
-
-
-
+        
       </main>
 
    

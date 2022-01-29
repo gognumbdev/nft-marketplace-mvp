@@ -16,8 +16,8 @@ const NFTCard = ({productId,owner,nftName,blockchain,blockchainImage,price,unit,
 
     useEffect( async () => {
             const res = await fetch(`http://localhost:3000/api/profile/${ownerWalletAddress}`)
-            const userData = await res.json()
-            setUserData(userData);
+            const data = await res.json()
+            setUserData(data);
     
     },[])
 

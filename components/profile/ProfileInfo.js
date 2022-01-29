@@ -1,5 +1,8 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+import {PencilIcon} from '@heroicons/react/outline'
+import { useSelector } from "react-redux";
+  
 
 const logoSrc = {
     twitter:"https://www.crescentcityjewishnews.com/blog/wp-content/uploads/2021/01/Twitter-Logo.png",
@@ -12,11 +15,36 @@ const userImage = "https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55e
 const ProfileInfo = ({username,walletAddress,description,profileImage,socialNetworks}) => {
     const router = useRouter();
     const [showAddress, setShowAddress] = useState(false);
+    const user = useSelector(state => state.user)
+    
+    const goToEditProfile = () => {
+        router.push({
+            pathname:"/profile/edit/[walletAddress]",
+            query:{walletAddress:user.walletAddress},
+            state:{
+                username,
+                walletAddress,
+                description,
+                profileImage,
+                socialNetworks
+            }
+        })
+    }
 
     return (
-    <div className="grid grid-cols-1 place-items-center space-y-4">
+    <div className="grid grid-cols-1 place-items-center space-y-4 w-8/12">
+        {user.walletAddress === walletAddress && (
+            <div 
+                className="flex items-center w-fit h-fit space-x-2  bg-white rounded-full p-2 
+                    cursor-pointer transition transform duration-300 ease-out hover:-translate-y-2"
+                onClick={goToEditProfile}
+            >
+                <PencilIcon className="h-6" />
+                <p>Edit Profile</p>
+            </div>
+        )}
         <img src={profileImage || userImage} alt={username} className="h-40 w-40 rounded-full object-cover" />
-        <p className="text-2xl font-bold">{username}</p>
+        <p className="p-2 text-2xl font-bold bg-white shadow-lg roundd ">{username}</p>
         <p className="text-base p-2 hover:text-blue-500 cursor-pointer shadow-xl bg-white rounded-full 
             transition transform duration-300 ease-out hover:-translate-y-2"
             onClick={() => setShowAddress(!showAddress)}

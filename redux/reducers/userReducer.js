@@ -1,8 +1,7 @@
-import { combineReducers } from 'redux'
-import * as types from './type.js'
+import {LOGIN,LOGOUT} from "../actionTypes"
 
 // Initial user state
-const InitailUserState = {
+export const InitailUserState = {
     username: "",
     walletAddress: "",
     balance:"",
@@ -14,26 +13,29 @@ const InitailUserState = {
 
 const userReducer = (state = InitailUserState,{type,payload}) => {
     switch(type) {
-        case types.LOGIN : 
+        case LOGIN : 
             return {
                 username: payload.username,
                 walletAddress: payload.walletAddress,
                 balance:payload.balance,
                 network:payload.network,
-                profileImage: payload.profileImage,
-                description: payload.description,
-                socialNetworks: payload.socialNetworks,
+                profileImage: payload.profileImage ,
             }
-        case types.LOGOUT : 
+        case LOGOUT : 
             return {...InitailUserState}
         default :
             return state
     }
 }
 
-// COMBINED REDUCERS
-const reducers = {
-    user: userReducer,
-}
+export default userReducer;
 
-export default combineReducers(reducers)
+// {
+//     username: payload.username,
+//     walletAddress: payload.walletAddress,
+//     balance:payload.balance,
+//     network:payload.network,
+//     profileImage: payload.profileImage,
+//     description: payload.description,
+//     socialNetworks: payload.socialNetworks,
+// }

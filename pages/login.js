@@ -4,12 +4,14 @@ import metamaskLogo from "../public/image/metamask.png"
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { connectAndDispatch } from "../controllers/connectWallet";
-import { useSelector } from "react-redux";
 
 const login = () => {
     const dispatch = useDispatch();
     const router = useRouter();
-    const user = useSelector(state => state.user)
+
+    const logUserIn = () => {
+        connectAndDispatch(dispatch,router);
+    }
 
     return (
         <div className="w-full grid grid-cols-1 h-screen gap-y-4 content-start place-items-center">
@@ -26,8 +28,9 @@ const login = () => {
                 className="shadow-xl w-4/6 md:w-3/6 bg-white mt-5 p-2 rounded"            
             >
                 <div 
-                    className="flex space-x-5 rounded justify-start items-center transform transition duration-150 ease-in hover:scale-y-105 hover:shadow-xl cursor-pointer"
-                    onClick={() => connectAndDispatch(dispatch,router)}
+                    className="flex space-x-5 rounded justify-start items-center transform transition duration-150 ease-in
+                    hover:scale-y-105 hover:shadow-xl cursor-pointer active:scale-90"
+                    onClick={logUserIn}
                 >
                     <Image 
                         height={60}
