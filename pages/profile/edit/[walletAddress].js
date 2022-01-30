@@ -1,7 +1,11 @@
 import { useRouter } from 'next/router';
-import { useState,useRef } from 'react';
+import { useState } from 'react';
 import {LinkIcon} from '@heroicons/react/outline'
 import Head from 'next/head';
+import { useDispatch } from 'react-redux';
+import { logIn } from '../../../redux/actions/userAction';
+import FileBase64 from 'react-file-base64';
+
 const userImage = "https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png"
 
 const logoSrc = {
@@ -10,31 +14,59 @@ const logoSrc = {
 }
 
 const EditProfilePage = ({userData}) => {
+    const dispatch = useDispatch();
     const router = useRouter();
     const {walletAddress} = router.query;
     const {username,description,profileImage,socialNetworks} = userData
+    let twitter = socialNetworks.find(obj => obj.name === "twitter")
+    let instagram = socialNetworks.find(obj => obj.name === "instagram")
+    let link = socialNetworks.find(obj => obj.name === "link")
+
     const [image,setImage] = useState(null);
     const [createObjectURL,setCreateObjectURL] = useState(null);
-    const [usernameInput, setUsernameInput] = useState("");
-    const [bioInput, setBioInput] = useState("");
-    const [twitterInput, setTwitterInput] = useState({ref:"",link:""});
-    const [instagramInput, setInstagramInput] = useState({ref:"",link:""});
-    const [linkInput, setLinkInput] = useState("");
+    const [usernameInput, setUsernameInput] = useState(username || "");
+    const [bioInput, setBioInput] = useState(description || "");
+    const [twitterInput, setTwitterInput] = useState({ref:twitter?.value || "",link:twitter?.link || ""});
+    const [instagramInput, setInstagramInput] = useState({ref: instagram?.value || "",link:instagram?.link || ""});
+    const [linkInput, setLinkInput] = useState({ref: link?.value || "",link: link?.link || ""});
 
-    const handleSubmitData = () => {
-        console.log(usernameInput,bioInput,twitterInput,instagramInput,linkInput)
-        console.log(image);
-        console.log(createObjectURL);
+    const handleSubmitData = async () => {
+        // console.log(image);
+        // console.log(createObjectURL);
+        let editData = {usernameInput,bioInput,twitterInput,instagramInput,linkInput,image}
+        
+        let res = await fetch(`http://localhost:3000/api/profile/${walletAddress}`,{
+            method:"POST",
+            body:JSON.stringify(editData)
+        });
+
+        const data = await res.json()
+        dispatch(logIn(
+            {
+                username: data.username,
+                walletAddress: walletAddress,
+                profileImage: data.profileImage ,
+            }
+        ))
+        
+        console.log("respond data :",data);
+
+        router.push({
+            pathname:'/profile/[walletAddress]',
+            query: { 
+                walletAddress:walletAddress,
+            }
+        })
     }
 
-    const uploadToClient = (event) => {
-        if (event.target.files && event.target.files[0]) {
-            const i = event.target.files[0];
+    // const uploadToClient = (event) => {
+    //     if (event.target.files && event.target.files[0]) {
+    //         const i = event.target.files[0];
             
-            setImage(i);
-            setCreateObjectURL(URL.createObjectURL(i))
-        }
-    }
+    //         setImage(i);
+    //         setCreateObjectURL(URL.createObjectURL(i))
+    //     }
+    // }
 
 
     return (
@@ -54,15 +86,22 @@ const EditProfilePage = ({userData}) => {
             {/* Image */}
             <img 
                 className='h-40 w-40 mt-10'
-                src={createObjectURL || (userData.profilImage || userImage)} alt={userData.username} 
+                src={image || (userData.profilImage || userImage)} alt={userData.username} 
             />
 
+            {/* Upload Image with react base 64  */}
+            <FileBase64
+                multiple={false}
+                onDone={({base64}) => setImage(base64)}
+            
+            />
 
-            <input 
+            {/* Traditional Solution to upload image */}
+            {/* <input 
                 type="file" 
                 name="profile image"
                 onChange={uploadToClient}
-            />
+            /> */}
 
             {/* Username */}
             <div className='flex-col p-2 rounded space-y-2 bg-white mt-5 w-8/12'>
@@ -94,14 +133,14 @@ const EditProfilePage = ({userData}) => {
                     <div className='grid grid-cols-1 space-y-2 '>
                         {/* User Ref */}
                         <input className='p-2 border-2 border-slate-300 rounded outline-none text-gray-600 placeholder:text-gray-500 focus:border-blue-500'
-                            type="text" placeholder={"@yourRef on twitter"}
+                            type="text" placeholder={twitterInput.ref || "@yourRef on twitter"}
                             value={twitterInput.ref}
                             onChange={(e) => setTwitterInput({ref:e.target.value,link:twitterInput.link})}
                         />
 
                         {/*  link */}
                         <input className='p-2 border-2 border-slate-300 rounded outline-none text-gray-600 placeholder:text-gray-500 focus:border-blue-500'
-                            type="text" placeholder={"www.twitter.com/@yourRef"}
+                            type="text" placeholder={twitterInput.link ||"www.twitter.com/@yourRef"}
                             value={twitterInput.link}
                             onChange={(e) => setTwitterInput({link:e.target.value,ref:twitterInput.ref})}
                         />
@@ -114,14 +153,14 @@ const EditProfilePage = ({userData}) => {
                     <div className='grid grid-cols-1 space-y-2 '>
                         {/* User Ref */}
                         <input className='p-2 border-2 border-slate-300 rounded outline-none text-gray-600 placeholder:text-gray-500 min-w-fit focus:border-blue-500'
-                            type="text" placeholder={"your name on instagram"}
+                            type="text" placeholder={instagramInput.ref || "your name on instagram"}
                             value={instagramInput.ref}
                             onChange={(e) => setInstagramInput({ref:e.target.value,link:instagramInput.link})}
                         />
 
                         {/*  link */}
                         <input className='p-2 border-2 border-slate-300 rounded outline-none text-gray-600 placeholder:text-gray-500 focus:border-blue-500'
-                            type="text" placeholder={"www.instagram.com/@yourRef"}
+                            type="text" placeholder={instagramInput.link || "www.instagram.com/@yourRef"}
                             value={instagramInput.link}
                             onChange={(e) => setInstagramInput({link:e.target.value,ref:instagramInput.ref})}
                         />
@@ -133,11 +172,21 @@ const EditProfilePage = ({userData}) => {
                 <div className='flex justify-start items-center space-x-10 px-5 py-2'>
                     <LinkIcon className='h-10' />
                         {/*  link */}
-                        <input className='p-2 border-2 border-slate-300 rounded outline-none text-gray-600 placeholder:text-gray-500 focus:border-blue-500'
-                            type="text" placeholder={"your other link"}
-                            value={linkInput}
-                            onChange={(e) => setLinkInput(e.target.value)}
-                        />
+                        <div className='grid grid-cols-1 space-y-2 '>
+                            {/* User Ref */}
+                            <input className='p-2 border-2 border-slate-300 rounded outline-none text-gray-600 placeholder:text-gray-500 min-w-fit focus:border-blue-500'
+                                type="text" placeholder={linkInput.ref || "yourRef link name"}
+                                value={linkInput.ref}
+                                onChange={(e) => setLinkInput({ref:e.target.value,link:linkInput.link})}
+                            />
+
+                            {/*  link */}
+                            <input className='p-2 border-2 border-slate-300 rounded outline-none text-gray-600 placeholder:text-gray-500 focus:border-blue-500'
+                                type="text" placeholder={linkInput.link || "www.example.com/yourRef"}
+                                value={linkInput.link}
+                                onChange={(e) => setLinkInput({link:e.target.value,ref:linkInput.ref})}
+                            />
+                        </div>
                 </div>
             </div>
 
