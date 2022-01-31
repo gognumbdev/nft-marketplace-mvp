@@ -5,6 +5,7 @@ import Head from 'next/head';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../../redux/actions/userAction';
 import FileBase64 from 'react-file-base64';
+import { useSelector } from 'react-redux';
 
 const userImage = "https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png"
 
@@ -16,6 +17,7 @@ const logoSrc = {
 const EditProfilePage = ({userData}) => {
     const dispatch = useDispatch();
     const router = useRouter();
+    const user = useSelector(state => state.user)
     const {walletAddress} = router.query;
     const {username,description,profileImage,socialNetworks} = userData
     let twitter = socialNetworks.find(obj => obj.name === "twitter")
@@ -23,7 +25,6 @@ const EditProfilePage = ({userData}) => {
     let link = socialNetworks.find(obj => obj.name === "link")
 
     const [image,setImage] = useState(null);
-    const [createObjectURL,setCreateObjectURL] = useState(null);
     const [usernameInput, setUsernameInput] = useState(username || "");
     const [bioInput, setBioInput] = useState(description || "");
     const [twitterInput, setTwitterInput] = useState({ref:twitter?.value || "",link:twitter?.link || ""});
@@ -31,8 +32,6 @@ const EditProfilePage = ({userData}) => {
     const [linkInput, setLinkInput] = useState({ref: link?.value || "",link: link?.link || ""});
 
     const handleSubmitData = async () => {
-        // console.log(image);
-        // console.log(createObjectURL);
         let editData = {usernameInput,bioInput,twitterInput,instagramInput,linkInput,image}
         
         let res = await fetch(`http://localhost:3000/api/profile/${walletAddress}`,{
@@ -46,6 +45,8 @@ const EditProfilePage = ({userData}) => {
                 username: data.username,
                 walletAddress: walletAddress,
                 profileImage: data.profileImage ,
+                balance:user.balance,
+                network:user.network,
             }
         ))
         
@@ -58,16 +59,6 @@ const EditProfilePage = ({userData}) => {
             }
         })
     }
-
-    // const uploadToClient = (event) => {
-    //     if (event.target.files && event.target.files[0]) {
-    //         const i = event.target.files[0];
-            
-    //         setImage(i);
-    //         setCreateObjectURL(URL.createObjectURL(i))
-    //     }
-    // }
-
 
     return (
         <div className='p-10 grid grid-cols-1 place-items-center w-full '>
@@ -95,13 +86,6 @@ const EditProfilePage = ({userData}) => {
                 onDone={({base64}) => setImage(base64)}
             
             />
-
-            {/* Traditional Solution to upload image */}
-            {/* <input 
-                type="file" 
-                name="profile image"
-                onChange={uploadToClient}
-            /> */}
 
             {/* Username */}
             <div className='flex-col p-2 rounded space-y-2 bg-white mt-5 w-8/12'>

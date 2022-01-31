@@ -39,7 +39,7 @@ const connectWallet = async () => {
     }
 }
 
-const connectAndDispatch = (dispatch,router) => {
+const connectAndDispatch = (dispatch) => {
     
     connectWallet().then( async ({permission,userAddress,userBalance,userNetwork}) => {
 
@@ -63,9 +63,6 @@ const connectAndDispatch = (dispatch,router) => {
                 profileImage: userData.profileImage ,
             }
         ))
-        router.push("/")
-
-        return userAddress ;
     })
 }
 

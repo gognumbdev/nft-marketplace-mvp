@@ -14,7 +14,7 @@ const Asset = ({ownerWalletAddress,ownedNFT,username}) => {
           
           <div className='grid grid-cols-2 place-items-center w-full'>
           {ownedNFT.map((nftData,index ) => (
-              <NFT3D data={nftData} key={index} />
+              <NFT3D data={nftData} key={index} card={true}/>
             )
           )}
            

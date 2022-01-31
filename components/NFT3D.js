@@ -5,7 +5,7 @@ import { Suspense,useState } from "react";
 import {SwitchHorizontalIcon} from "@heroicons/react/outline"
 import dynamic from "next/dynamic";
 
-const NFT3D = ({data}) => {
+const NFT3D = ({data,card}) => {
     const [rotate, setRotate] = useState(false);
     const Model3D = dynamic(() => import(`./3Dmodels/${data.jsx}`))
 
@@ -22,7 +22,7 @@ const NFT3D = ({data}) => {
             </Suspense>
         </Canvas>
         <SwitchHorizontalIcon onClick={() => setRotate(!rotate)} className="h-6 place-self-center border-2 rounded-full bg-white "/>
-        <NFTCard {...data}/>
+        {card &&  <NFTCard {...data}/> }
     </div>
     )
 }

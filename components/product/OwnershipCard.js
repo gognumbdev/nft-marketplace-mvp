@@ -1,5 +1,8 @@
+import { useEffect, useState } from "react"
 
-const OwnershipCard = ({owner,creator,router}) => {
+const OwnershipCard = ({ownerWalletAddress,creatorWalletAddress,router}) => {
+    const [owner, setOwner] = useState({});
+    const [creator, setCreator] = useState({});
     
     const goToProfile = (address) => {
         router.push({
@@ -9,6 +12,15 @@ const OwnershipCard = ({owner,creator,router}) => {
             }
         })
     }
+
+    useEffect( async () => {
+        const ownerRes = await fetch(`http://localhost:3000/api/profile/${ownerWalletAddress}`)
+        const ownerData = await ownerRes.json()
+        const creatorRes = await fetch(`http://localhost:3000/api/profile/${creatorWalletAddress}`)
+        const creatorData = await creatorRes.json()
+        setOwner(ownerData);
+        setCreator(creatorData);
+    },[])
 
     return (
         <div className="h-full flex-col w-96 justify-start shadow-xl rounded-lg bg-white p-2 space-y-2 ">
