@@ -14,7 +14,6 @@ contract NFTMarket is ReentrancyGuard {
     // _itemsIds and _itemSold is the variable for use to count ID(listed item) of item and number of item sold for this contract(platform).
 
     address payable owner;
-    uint listingPrice = 0.025 ether;
 
     constructor(){
         owner = payable(msg.sender);
@@ -27,7 +26,6 @@ contract NFTMarket is ReentrancyGuard {
         address payable seller;
         address payable owner;
         uint256 price;
-        bool sold;
     }
 
     mapping(uint256 => MarketItem) private idToMarketItem;
@@ -39,14 +37,8 @@ contract NFTMarket is ReentrancyGuard {
         uint256 indexed tokenId,
         address seller,
         address owner,
-        uint256 price,
-        bool sold
+        uint256 price
     );
-
-    /* Returns the listing price of the contract */ 
-    function getListingPrice() public view returns (uint256) {
-        return listingPrice;
-    }
 
     /* Places an Item for sale in the marketplace */ 
     function createMarketItem(
@@ -55,7 +47,6 @@ contract NFTMarket is ReentrancyGuard {
         uint256 price
     ) public payable nonReentrant {
         require(price > 0 , "Price must be at least 1 wei");
-        require(msg.value == listingPrice,"Price must be equal to listing price.");
 
         _itemIds.increment();
         uint256 itemId = _itemIds.current();
@@ -66,8 +57,7 @@ contract NFTMarket is ReentrancyGuard {
             tokenId,
             payable(msg.sender),
             payable(address(0)),
-            price,
-            false
+            price
         );
 
         // transferFrom(address from, address to, uint256 tokenId)
@@ -79,8 +69,7 @@ contract NFTMarket is ReentrancyGuard {
             tokenId,
             msg.sender,
             address(0),
-            price,
-            false
+            price
         );
     }
 
@@ -93,20 +82,22 @@ contract NFTMarket is ReentrancyGuard {
         uint price = idToMarketItem[itemId].price;
         uint tokenId = idToMarketItem[itemId].tokenId;
         require(msg.value == price,"Please submit the asking price in order to complete the purchase");
+        uint256 fee = msg.value*25/10000;
+        uint256 sellerRevenue = msg.value*9975/10000;
 
-         // Transfer amount of ether equal to msg.value to seller of this NFT
-        idToMarketItem[itemId].seller.transfer(msg.value);
+        // Transfer amount of ether equal to msg.value to seller of this NFT
+        idToMarketItem[itemId].seller.transfer(sellerRevenue);
         
         // Transfer ownership of this NFT from the platform to customer(msg.sender).
         IERC721(nftContract).transferFrom(address(this),msg.sender,tokenId);
 
         // change the ownership for this NFT.
         idToMarketItem[itemId].owner = payable(msg.sender);
-        idToMarketItem[itemId].sold = true;
         _itemsSold.increment();
         
         // 'owner' is address of the platform ,so the platfrom address get the ether amount equal to listingPrice.
-        payable(owner).transfer(listingPrice);
+        payable(owner).transfer(fee);
+
     }
 
     /* Returns all unsold market items */

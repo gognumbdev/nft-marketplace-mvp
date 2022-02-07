@@ -1,9 +1,11 @@
 import {UserCircleIcon,LogoutIcon,CashIcon} from '@heroicons/react/outline'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../redux/actions/userAction';
+import 'reactjs-popup/dist/index.css';
+import { connectAndDispatch } from '../controllers/connectWallet';
+import LogInPopUp from './utils/LogInPopUp';
 
 const Navbar = () => {
     const router = useRouter();
@@ -19,10 +21,18 @@ const Navbar = () => {
         })
     }
 
+    const goToCreate = () => {
+        if(user.walletAddress){
+            router.push("/create");
+        }
+    }
+
     const logout = () => {
         dispatch(logOut())
     }
 
+    const logUserIn = () => {
+        connectAndDispatch(dispatch,router);
     const goToExchange  = () => {
         router.push({
             pathname:'/exchange',   
@@ -52,23 +62,44 @@ const Navbar = () => {
             
 
             {/* Right set */}
-            <div className="flex items-center justify-end w-4/6 px-5 space-x-10 ">
-                <p 
-                    className='cursor-pointer'
-                    onClick={() => router.push("/create-nft")}>
-                        Create
-                </p>
+            <div className="flex items-center justify-end w-4/6 px-5 space-x-10 font-medium ">
+                {user?.walletAddress 
+                    ? (
+                        <p 
+                            className='cursor-pointer transition duration-150 hover:-translate-y-1 hover:border-b-4 hover:border-amber-500 hover:text-blue-500'
+                            onClick={goToCreate}>
+                                Create
+                        </p>
+                    ) : (
+                            
+                            <LogInPopUp 
+                                router={router} logUserIn={logUserIn} 
+                                triggerPopUp={
+                                    <p 
+                                        className='cursor-pointer transition duration-150 hover:-translate-y-1 hover:border-b-4 hover:border-amber-500 hover:text-blue-500'
+                                        >
+                                            Create
+                                    </p>
+                                } 
+                            />
+                        
+                        
+                    )
+                }
+                
+               
                 {/* <p 
                     className='cursor-pointer'
                     onClick={() => router.push("/about")}>
                         About
                 </p> */}
                 <p
-                    className='cursor-pointer'
+                    className='cursor-pointer transition duration-150 hover:-translate-y-1 hover:border-b-4 hover:border-amber-500 hover:text-blue-500'
                 >
                         Feedback
                 </p>
                 
+                {/* User Profile Button or Connect Wallet Button */}
                 {user.walletAddress ? (
                     <div className='flex items-center space-x-5'>
                         {user?.profileImage ? (
@@ -105,12 +136,15 @@ const Navbar = () => {
                     </div>
                     
                 ) : (
-                    <button 
-                        onClick={() => router.push("/login")}
+                   <LogInPopUp 
+                    router={router}
+                    logUserIn={logUserIn}
+                    triggerPopUp={<button 
                         className="px-4 py-2 border-1 font-medium rounded-full bg-amber-500 text-sm lg:text-base
                         hover:scale-105 transform transition duration-150 ease-out flex justify-center items-center space-x-2">
                         Connect Wallet
-                    </button>
+                    </button> }    
+                   />
                 )}
                 
             </div>

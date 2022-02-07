@@ -1,5 +1,4 @@
 import mongoose from "mongoose"
-const {NFTSchema} = require("./NFT")
 
 const userSocialSchema = new mongoose.Schema({
     name: String,
@@ -22,7 +21,14 @@ const transactionSchema = new mongoose.Schema({
     network:networkSchema,
     unit:String,
     date:String,
+    tokenId:Number
 })
+
+const NFTContractTokenId = new mongoose.Schema({
+    nftcontract:String,
+    tokenId:Number,
+})
+
 
 const UserSchema = new mongoose.Schema({
     username: String,
@@ -31,8 +37,9 @@ const UserSchema = new mongoose.Schema({
     description: String,
     socialNetworks: [userSocialSchema],
     transactions:[transactionSchema],
-    listedNFT:[NFTSchema],
-    ownedNFT:[NFTSchema]
+    listingNFT:[NFTContractTokenId],
+    createdNFT:[NFTContractTokenId],
+    ownedNFT:[NFTContractTokenId]
 })
 
 

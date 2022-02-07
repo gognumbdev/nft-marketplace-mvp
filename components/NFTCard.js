@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const NFTCard = ({productId,owner,nftName,blockchain,blockchainImage,price,unit,ownerWalletAddress}) => {
+const NFTCard = ({productId,owner,nftName,nftContract,tokenId,blockchain,blockchainImage,price,unit,ownerWalletAddress}) => {
     const router = useRouter();
     const [userData, setUserData] = useState({});   
 
@@ -10,6 +10,16 @@ const NFTCard = ({productId,owner,nftName,blockchain,blockchainImage,price,unit,
             pathname: '/product/[productId]',
             query: { 
                 productId:productId,
+            },
+        })
+    }
+    
+    const goToNFTPage = () => {
+        router.push({
+            pathname: '/asset/[nftContract]/[tokenId]',
+            query: { 
+                nftContract:nftContract,
+                tokenId:tokenId
             },
         })
     }
@@ -24,7 +34,8 @@ const NFTCard = ({productId,owner,nftName,blockchain,blockchainImage,price,unit,
         <div 
             className="place-self-center mt-2 border-1 px-4 py-1 shadow-xl flex-col rounded-xl h-fit  
             hover:-translate-y-2 cursor-pointer transform transition duration-300 ease-out active:scale-95 bg-white w-4/6 space-y-4"
-            onClick={goToProduct}
+            // onClick={goToProduct}
+            onClick={goToNFTPage}
         >   
             <p className="text-xl lg:text-2xl font-bold truncate border-b-2 py-2">{nftName} </p>
 

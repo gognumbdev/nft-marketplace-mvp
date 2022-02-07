@@ -10,8 +10,8 @@ export default async function handler(req,res) {
     if (req.method === "GET") {
 
         try {
-            if (!userData && walletAddress) {
-                console.log("Find Nothing !");
+            if (!userData && (walletAddress.length === 42) ) {1
+                console.log("Find Nothing !,Let's Create");
                 await UserModel.create({
                     username: "unnamed",
                     walletAddress: walletAddress,
@@ -49,18 +49,18 @@ export default async function handler(req,res) {
                     socialNetworks: [
                         {
                             name:"twitter",
-                            value: twitterInput.ref || twitter.value,
-                            link: twitterInput.link || twitter.link
+                            value: twitterInput?.ref || (twitter?.value || ""),
+                            link: twitterInput?.link || (twitter?.link || "")
                         },
                         {
                             name:"instagram",
-                            value: instagramInput.ref || instagram.value,
-                            link: instagramInput.link || instagram.link
+                            value: instagramInput?.ref || (instagram?.value || ""),
+                            link: instagramInput?.link || (instagram?.link || "")
                         },
                         {
                             name:"link",
-                            value: linkInput.ref || link.value,
-                            link: linkInput.link || link.link
+                            value: linkInput?.ref || (link?.value || ""),
+                            link: linkInput?.link || (link?.link || "")
                         }
                     ],
                 },

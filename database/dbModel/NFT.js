@@ -10,6 +10,7 @@ const networkSchema = new mongoose.Schema({
 const transactionSchema = new mongoose.Schema({
     nftName:String,
     nftContract:String,
+    tokenId:Number,
     fromAddress:String,
     toAddress:String,
     value:Number,
@@ -20,14 +21,16 @@ const transactionSchema = new mongoose.Schema({
 
 const NFTSchema = new mongoose.Schema({
     nftContract:String,
-    productId:Number,
+    nftName:String,
+    description:String,
+    productId:String,
+    tokenId:Number,
     model:String,
     jsx:String,
     owner:String,
     ownerWalletAddress:String,
     creator:String,
     creatorWalletAddress:String,
-    nftName:String,
     blockchain:String,
     blockchainImage:String,
     price:Number,

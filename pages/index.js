@@ -23,13 +23,13 @@ export default function Home({products}) {
         {/* Landing Page Banner */}
         <div className='flex justify-between items-center'>
           <Banner />
-          <NFT3D data={products[0]} />
+          <NFT3D data={products[0]} card={true} />
         </div>
 
         {/* NFTSets */}
         <div className='grid grid-cols-2 place-items-center w-full'>
           {products.slice(1,).map((nftData,index ) => (
-              <NFT3D data={nftData} key={index} />
+              <NFT3D data={nftData} card={true} key={index} />
             )
           )}
            
