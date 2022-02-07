@@ -68,7 +68,7 @@ const ProfileDetails = ({userData}) => {
           ? (<Asset ownedNFT={userData.ownedNFT} ownerWalletAddress={userData.walletAddress} username={userData.username} />) 
           : ( tab === "transaction" 
             ? ( <Transaction transactions={userData.transactions} ownerWalletAddress={user.walletAddress} />) 
-            : (<Created />)
+            : (<Created createdNFT={userData.createdNFT} walletAddress={userData.walletAddress} username={userData.username} />)
             )
         }
       </div>

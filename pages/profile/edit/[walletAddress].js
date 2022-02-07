@@ -84,7 +84,6 @@ const EditProfilePage = ({userData}) => {
             <FileBase64
                 multiple={false}
                 onDone={({base64}) => setImage(base64)}
-            
             />
 
             {/* Username */}

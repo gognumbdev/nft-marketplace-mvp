@@ -12,8 +12,6 @@ const EditItemInfo = ({nftData}) => {
   // this must be dynamicly in production
   let maticPerUSD = 1.55;
 
-  console.log(nftData);
-
   const submitEditItemInfo = async () => {
     let editData = {nameInput,descriptionInput,priceInput}
         

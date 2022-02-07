@@ -1,10 +1,12 @@
 import { SwitchHorizontalIcon } from "@heroicons/react/outline";
 import { OrbitControls } from "@react-three/drei"
 import { Canvas } from "@react-three/fiber"
+import dynamic from "next/dynamic";
 import { useState } from "react";
 
-const NFTProduct = ({Model,nftName,nftContract,blockchain}) => {
+const NFTProduct = ({jsx,nftName,nftContract,blockchain}) => {
     const [rotate, setRotate] = useState(false);
+    let Model = dynamic(() => import(`../3Dmodels/${jsx}`));
 
     return (
         <div className="grid grid-cols-1 h-screen place-items-center">

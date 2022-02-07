@@ -3,11 +3,9 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../redux/actions/userAction';
-import Image from "next/image";
-import metamaskLogo from "../public/image/metamask.png"
-import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { connectAndDispatch } from '../controllers/connectWallet';
+import LogInPopUp from './utils/LogInPopUp';
 
 const Navbar = () => {
     const router = useRouter();
@@ -21,6 +19,12 @@ const Navbar = () => {
                 walletAddress:user.walletAddress,
             }
         })
+    }
+
+    const goToCreate = () => {
+        if(user.walletAddress){
+            router.push("/create");
+        }
     }
 
     const logout = () => {
@@ -42,11 +46,31 @@ const Navbar = () => {
 
             {/* Right set */}
             <div className="flex items-center justify-end w-4/6 px-5 space-x-10 font-medium ">
-                <p 
-                    className='cursor-pointer transition duration-150 hover:-translate-y-1 hover:border-b-4 hover:border-amber-500 hover:text-blue-500'
-                    onClick={() => router.push("/create-nft")}>
-                        Create
-                </p>
+                {user?.walletAddress 
+                    ? (
+                        <p 
+                            className='cursor-pointer transition duration-150 hover:-translate-y-1 hover:border-b-4 hover:border-amber-500 hover:text-blue-500'
+                            onClick={goToCreate}>
+                                Create
+                        </p>
+                    ) : (
+                            
+                            <LogInPopUp 
+                                router={router} logUserIn={logUserIn} 
+                                triggerPopUp={
+                                    <p 
+                                        className='cursor-pointer transition duration-150 hover:-translate-y-1 hover:border-b-4 hover:border-amber-500 hover:text-blue-500'
+                                        >
+                                            Create
+                                    </p>
+                                } 
+                            />
+                        
+                        
+                    )
+                }
+                
+               
                 {/* <p 
                     className='cursor-pointer'
                     onClick={() => router.push("/about")}>
@@ -95,59 +119,15 @@ const Navbar = () => {
                     </div>
                     
                 ) : (
-                    <Popup 
-                        trigger={
-                            <button 
-                                className="px-4 py-2 border-1 font-medium rounded-full bg-amber-500 text-sm lg:text-base
-                                hover:scale-105 transform transition duration-150 ease-out flex justify-center items-center space-x-2">
-                                Connect Wallet
-                            </button>} 
-                        position="right center"
-                        modal nested
-                        >
-                        {close => (
-                            <div className='relative h-fit w-full grid grid-cols-1 place-items-center rounded-full p-5 '>
-                                {/* Header */}
-                                <button className="absolute top-0 right-0 border-2 px-3 py-1 text-2xl rounded" onClick={close}>
-                                &times;
-                                </button>
-                                <div className="grid grid-cols-1 justify-start">
-                                    <p className="text-4xl font-bold mb-5 place-self-center">Connect Wallet</p>
-                                    <p className="">Connect your crypto wallet with the one you have the account.</p>
-                                    <p>Sorry for your inconvenient we have only 
-                                        <span
-                                            className='px-1 text-amber-500 font-bold cursor-pointer text-lg'
-                                            onClick={() => router.push("https://metamask.io/")}
-                                        > MetaMask 
-                                        </span> 
-                                        wallet for now.
-                                    </p>
-                                </div>
-                                
-                                {/* Set of Crypto Wallet for user to cennect*/}
-                                <div 
-                                    className="shadow-xl w-4/6 md:w-3/6 bg-white mt-5 p-2 "            
-                                >
-                                    <div 
-                                        className="flex space-x-5 rounded justify-start items-center transform transition duration-150 ease-in
-                                        hover:scale-105 hover:shadow-xl cursor-pointer active:scale-90 border-2 border-gray-300 "
-                                        onClick={logUserIn}
-                                    >
-                                        <Image 
-                                            height={60}
-                                            width={60}
-                                            src={metamaskLogo}
-                                            objectFit="cover" 
-                                            alt="Logo of Metamask wallet"
-                                        />
-                                        <p className="text-xl">MetaMask</p>
-                                    </div>
-
-                                </div>
-                            </div>
-                            
-                        )}
-                        </Popup>
+                   <LogInPopUp 
+                    router={router}
+                    logUserIn={logUserIn}
+                    triggerPopUp={<button 
+                        className="px-4 py-2 border-1 font-medium rounded-full bg-amber-500 text-sm lg:text-base
+                        hover:scale-105 transform transition duration-150 ease-out flex justify-center items-center space-x-2">
+                        Connect Wallet
+                    </button> }    
+                   />
                 )}
                 
             </div>

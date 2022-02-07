@@ -1,7 +1,9 @@
 /* hardhat.config.js */
+
+const config = require("./next.config.js");
+
 require("@nomiclabs/hardhat-waffle")
-const fs = require('fs')
-// const privateKey = process.env.privateKey
+const privateKey = config.env.marketplacePrivateKey
 
 module.exports = {
   defaultNetwork: "hardhat",
