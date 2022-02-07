@@ -33,6 +33,8 @@ const Navbar = () => {
 
     const logUserIn = () => {
         connectAndDispatch(dispatch,router);
+    }
+    
     const goToExchange  = () => {
         router.push({
             pathname:'/exchange',   
