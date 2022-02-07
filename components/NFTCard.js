@@ -32,7 +32,7 @@ const NFTCard = ({productId,owner,nftName,nftContract,tokenId,blockchain,blockch
 
     return (
         <div 
-            className="place-self-center mt-2 border-1 px-4 py-1 shadow-xl flex-col rounded-xl h-fit hover:bg-amber-500  
+            className="place-self-center mt-2 border-1 px-4 py-1 shadow-xl flex-col rounded-xl h-fit  
             hover:-translate-y-2 cursor-pointer transform transition duration-300 ease-out active:scale-95 bg-white w-4/6 space-y-4"
             // onClick={goToProduct}
             onClick={goToNFTPage}
