@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose"
 
 const userSocialSchema = new mongoose.Schema({
     name: String,
@@ -13,26 +13,38 @@ const networkSchema = new mongoose.Schema({
 })
 
 const transactionSchema = new mongoose.Schema({
+    nftName:String,
     nftContract:String,
     fromAddress:String,
     toAddress:String,
     value:Number,
     network:networkSchema,
     unit:String,
-    date:Date,
+    date:String,
+    tokenId:Number
 })
+
+const NFTContractTokenId = new mongoose.Schema({
+    nftcontract:String,
+    tokenId:Number,
+})
+
 
 const UserSchema = new mongoose.Schema({
     username: String,
     walletAddress: String,
-    network:networkSchema,
-    chainId:Number,
     profileImage: String,
     description: String,
     socialNetworks: [userSocialSchema],
-    transactions:[transactionSchema]
+    transactions:[transactionSchema],
+    listingNFT:[NFTContractTokenId],
+    createdNFT:[NFTContractTokenId],
+    ownedNFT:[NFTContractTokenId]
 })
 
-export default (mongoose.models && mongoose.models.User
+
+let UserModel =  (mongoose.models && mongoose.models.User
     ? mongoose.models.User
-    : mongoose.model('User', UserSchema));
+    : mongoose.model('User', UserSchema))
+
+module.exports = {UserModel}

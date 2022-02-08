@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-
-const NFTCard = ({productId,owner,ownerImage,nftName,blockchain,blockchainImage,price,unit}) => {
+const NFTCard = ({productId,owner,nftName,nftContract,tokenId,blockchain,blockchainImage,price,unit,ownerWalletAddress}) => {
     const router = useRouter();
+    const [userData, setUserData] = useState({});   
 
     const goToProduct = () => {
         router.push({
@@ -12,17 +13,34 @@ const NFTCard = ({productId,owner,ownerImage,nftName,blockchain,blockchainImage,
             },
         })
     }
+    
+    const goToNFTPage = () => {
+        router.push({
+            pathname: '/asset/[nftContract]/[tokenId]',
+            query: { 
+                nftContract:nftContract,
+                tokenId:tokenId
+            },
+        })
+    }
+
+    useEffect( async () => {
+            const res = await fetch(`http://localhost:3000/api/profile/${ownerWalletAddress}`)
+            const data = await res.json()
+            setUserData(data);
+    },[])
 
     return (
         <div 
-            className="place-self-center border-1 px-4 py-1 shadow-xl flex-col rounded-xl h-fit hover:bg-amber-500  
-            hover:scale-105 cursor-pointer transform transition duration-300 ease-out active:scale-95 bg-white w-4/6 space-y-4"
-            onClick={goToProduct}
+            className="place-self-center mt-2 border-1 px-4 py-1 shadow-xl flex-col rounded-xl h-fit  
+            hover:-translate-y-2 cursor-pointer transform transition duration-300 ease-out active:scale-95 bg-white w-4/6 space-y-4"
+            // onClick={goToProduct}
+            onClick={goToNFTPage}
         >   
             <p className="text-xl lg:text-2xl font-bold truncate border-b-2 py-2">{nftName} </p>
 
             <div className="mt-2 flex justify-start items-center space-x-2">
-                <img src={ownerImage} alt={owner} className="h-9 rounded-full" />
+                <img src={userData.profileImage} alt={owner} className="h-9 rounded-full" />
                 <p className="text-base lg:text-lg font-medium">{owner}</p>
             </div>
 

@@ -1,8 +1,14 @@
 import Head from 'next/head'
+import { useSelector } from 'react-redux'
 import Banner from '../components/Banner'
 import NFT3D from '../components/NFT3D'
 
+
 export default function Home({products}) {
+  const user = useSelector(state => state.user)
+
+  console.log(user);
+  
 
   return (
     <div>
@@ -17,20 +23,18 @@ export default function Home({products}) {
         {/* Landing Page Banner */}
         <div className='flex justify-between items-center'>
           <Banner />
-          <NFT3D data={products[0]} />
+          <NFT3D data={products[0]} card={true} />
         </div>
 
         {/* NFTSets */}
         <div className='grid grid-cols-2 place-items-center w-full'>
           {products.slice(1,).map((nftData,index ) => (
-              <NFT3D data={nftData} key={index} />
+              <NFT3D data={nftData} card={true} key={index} />
             )
           )}
            
         </div>     
-
-
-
+        
       </main>
 
    

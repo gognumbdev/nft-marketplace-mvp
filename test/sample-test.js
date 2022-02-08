@@ -13,18 +13,15 @@ describe("NFTMarket", function() {
     await nft.deployed()
     const nftContractAddress = nft.address
 
-    let listingPrice = await market.getListingPrice()
-    listingPrice = listingPrice.toString()
-
     const auctionPrice = ethers.utils.parseUnits('1', 'ether')
 
     /* create two tokens */
-    await nft.createToken("https://www.mytokenlocation.com")
-    await nft.createToken("https://www.mytokenlocation2.com")
+    await nft.createToken()
+    await nft.createToken()
 
     /* put both tokens for sale */
-    await market.createMarketItem(nftContractAddress, 1, auctionPrice, { value: listingPrice })
-    await market.createMarketItem(nftContractAddress, 2, auctionPrice, { value: listingPrice })
+    await market.createMarketItem(nftContractAddress, 1, auctionPrice)
+    await market.createMarketItem(nftContractAddress, 2, auctionPrice)
 
     const [_, buyerAddress] = await ethers.getSigners()
 

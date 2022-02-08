@@ -3,7 +3,10 @@ import '../styles/globals.css'
 import ProgressBar from "@badrap/bar-of-progress";
 import { Router } from 'next/router';
 import { Provider } from 'react-redux';
-import { useStore } from '../redux/store';
+import getStore from "../redux/store.js"
+import { PersistGate } from 'redux-persist/integration/react';
+
+const {store,persistor} = getStore();
 
 const progress = new ProgressBar({
   size:4,
@@ -18,13 +21,15 @@ Router.events.on('routeChangeError',progress.finish);
 
 
 function MyApp({ Component, pageProps }) {
-  const store = useStore(pageProps.initialReduxState)
+  // const store = useStore(pageProps.initialReduxState)
   
   return (
-    <Provider store={store}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+    <Provider store={store} >
+      <PersistGate persistor={persistor}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </PersistGate>
     </Provider>
   )
 }
