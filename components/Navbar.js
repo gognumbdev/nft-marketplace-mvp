@@ -33,6 +33,8 @@ const Navbar = () => {
 
     const logUserIn = () => {
         connectAndDispatch(dispatch,router);
+    }
+    
     const goToExchange  = () => {
         router.push({
             pathname:'/exchange',   
@@ -51,13 +53,23 @@ const Navbar = () => {
                 </h1>
 
                 {/* Exhange */}
-                <div 
-                    className='flex p-2 hover:bg-amber-500 rounded border-2 border-black cursor-pointer transition duration-200 transaform ease-out hover:scale-105
-                    '
-                    onClick={goToExchange}
-                >
-                    <p className=' font-bold  '>Buy and Sell Crypto</p>
-                </div>
+                {user?.walletAddress ? (
+                    <div 
+                        className='flex p-2 bg-amber-400 rounded border-2 border-black cursor-pointer transition duration-200 transaform ease-out hover:scale-105'
+                        onClick={goToExchange}>
+                        <p className='text-xl font-bold  '>Buy and Sell Crypto</p>
+                    </div>
+                ) : (
+                    <LogInPopUp
+                        router={router} logUserIn={logUserIn} 
+                        triggerPopUp={
+                            <div className='flex p-2 bg-amber-400 rounded border-2 border-black cursor-pointer transition duration-200 transaform ease-out hover:scale-105'>
+                                <p className='text-xl font-bold  '>Buy and Sell Crypto</p>
+                            </div>
+                        }
+                    />
+                )}
+              
             </div>
             
 
@@ -82,8 +94,6 @@ const Navbar = () => {
                                     </p>
                                 } 
                             />
-                        
-                        
                     )
                 }
                 
@@ -140,7 +150,7 @@ const Navbar = () => {
                     router={router}
                     logUserIn={logUserIn}
                     triggerPopUp={<button 
-                        className="px-4 py-2 border-1 font-medium rounded-full bg-amber-500 text-sm lg:text-base
+                        className="px-4 py-2 border-1 font-medium rounded-full bg-amber-400 text-sm lg:text-base
                         hover:scale-105 transform transition duration-150 ease-out flex justify-center items-center space-x-2">
                         Connect Wallet
                     </button> }    
