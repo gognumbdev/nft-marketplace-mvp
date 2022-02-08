@@ -38,8 +38,8 @@ const ProfileDetails = ({userData}) => {
       {/* TAB */}
       <div className="w-full shadow-lg  h-fit py-6 px-15 flex justify-center items-center space-x-10 text-2xl font-bold
         transition duration-150 transform ease-out">
-          {tabData.map(({name,icon}) => (
-            <div className={`grid-cols-1 grid place-items-center cursor-pointer hover:text-amber-500 transition duration-150 transform ease-out
+          {tabData.map(({name,icon}, idx) => (
+            <div key={idx} className={`grid-cols-1 grid place-items-center cursor-pointer hover:text-amber-500 transition duration-150 transform ease-out
                 ${ (tab === name ) && "border-b-4 border-amber-500  text-amber-500" }`}
                 onClick={() => handleClickTab(name)}>
                 {name != "transaction" 
