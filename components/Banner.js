@@ -1,8 +1,8 @@
 const Banner = () => {
     return (
         <div className='flex-col px-12 py-14 justify-between space-y-5 text-black w-2/4'>
-                <p className="text-4xl font-bold ">
-                    Exchange Cryptocurrency , Explore Creativity and Easily make NFT transaction
+                <p className="text-6xl font-bold ">
+                    Get access to global digital commerce with utility NFT
                 </p>
                 <p className="text-xl font-regular ">
                     FreeFlow is the one stop sevice NFT marketplace platform to help you buy and sell NFTs easily all the way from fiat currency to cryptocurrrency and vice versa.

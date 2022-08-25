@@ -1,11 +1,10 @@
 import NFTCard from "../components/NFTCard"
 import Head from "next/head"
-import NFT3D from "../components/NFT3D"
 import { useState } from "react";
 import FileBase64 from "react-file-base64"
 import { useSelector } from "react-redux";
 import { CloudUploadIcon,CheckCircleIcon } from "@heroicons/react/outline";
-import polygon from "../public/icons/polygon.png"
+import polygon from "../public/icons/crypto/polygon.png"
 import Image from "next/image"
 import { useRouter } from "next/router";
 //module related to Smart contract 
@@ -87,7 +86,7 @@ const CreatePage = () => {
 
   }
 
-  return (walletAddress &&
+  return (
     <div className="lg:flex w-full grid-cols-1">
       <Head>
         <title>Create NFT</title>
