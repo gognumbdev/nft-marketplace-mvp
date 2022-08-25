@@ -1,6 +1,11 @@
 import NFTCard from "../components/NFTCard"
 import Head from "next/head"
+<<<<<<< HEAD
 import { useState } from "react";
+=======
+import NFT3D from "../components/NFT3D"
+import { useState, useEffect, createRef } from "react";
+>>>>>>> 5628ada209368487183dd23050bb4bcdd721978b
 import FileBase64 from "react-file-base64"
 import { useSelector } from "react-redux";
 import { CloudUploadIcon,CheckCircleIcon } from "@heroicons/react/outline";
@@ -13,6 +18,23 @@ import NFT from "../artifacts/contracts/NFT.sol/NFT.json"
 import Market from "../artifacts/contracts/NFTMarket.sol/NFTMarket.json"
 import { verifyMessage } from "../controllers/connectWallet";
 
+const ImagePreview = ({blob}) => {
+  const [imgSource, setImageSource] = useState('')
+
+  
+  useEffect(() => {
+    //console.log(blob)
+    if (blob) {
+      const img_src = URL.createObjectURL(blob)
+      setImageSource(img_src)
+    }
+  }, [blob])
+  
+  return (
+    imgSource != '' ? <Image width="500" height="500" src={imgSource} alt=""/> : <div className="bg-white h-96 w-5/6"> </div>
+  )
+}
+
 const CreatePage = () => {
   const {walletAddress} = useSelector(state => state.user)
   const router = useRouter();
@@ -21,6 +43,7 @@ const CreatePage = () => {
   const [blockchain, setBlockchain] = useState("polygon");
   const [price, setPrice] = useState(0);
   const [file, setFile] = useState(null);
+  const fileSelectorRef = createRef()
 
   const submitCreateNFT = async () => {
     console.log(name,description,blockchain,price);
@@ -39,7 +62,7 @@ const CreatePage = () => {
       }
     })
   }
-
+  
   const createNFT = async () => {
     if (typeof window.ethereum !== "undefined") {
       try {
@@ -86,7 +109,16 @@ const CreatePage = () => {
 
   }
 
+<<<<<<< HEAD
   return (
+=======
+  const updateFile = (e) => {
+    e.preventDefault()
+    setFile(fileSelectorRef.current.files[0])
+  }
+
+  return (walletAddress &&
+>>>>>>> 5628ada209368487183dd23050bb4bcdd721978b
     <div className="lg:flex w-full grid-cols-1">
       <Head>
         <title>Create NFT</title>
@@ -95,9 +127,7 @@ const CreatePage = () => {
       {/* Upload File Section (Left) */}
       <div className="relative flex-col space-y-10 w-5/12 px-4 lg:px-6 py-6">
         <p className="text-4xl font-bold">Preview</p>
-        <div className="bg-white h-96 w-5/6">
-
-        </div>
+        <ImagePreview blob={file}/>
         {/* Preview NFT section */}
 
       </div>
@@ -114,9 +144,10 @@ const CreatePage = () => {
               <p className="text-xl font-medium">Upload your digital product</p>
             </div>
           
-          <FileBase64
-            multiple={false}
-            onDone={({base64}) => setFile(base64)}
+          <input
+            type="file"
+            ref={fileSelectorRef}
+            onChange={updateFile}
           />
         </div>
         
